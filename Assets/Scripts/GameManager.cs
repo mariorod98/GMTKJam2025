@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public enum LoopColor { Red, Orange, Yellow, Green, Blue, Purple, Size }
 
@@ -27,6 +28,12 @@ public class GameManager : MonoBehaviour
     public InputManager m_inputManager;
     public SpawnManager m_spawnManager;
 
+    public UnityEvent<float> m_onCountdownUpdate;
+    public UnityEvent<int, int> m_onScoreUpdate;
+
+
+
+
     [SerializeField] private int m_score = 0;
     [SerializeField] private float m_maxCountdown = 20.0f;
     private float m_countdown = 0.0f;
@@ -36,19 +43,29 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         m_countdown = m_maxCountdown;
+        m_onScoreUpdate.Invoke(0, 0);
+        m_onCountdownUpdate.Invoke(1.0f);
         m_spawnManager.SpawnWave();
+
     }
 
     // Update is called once per frame
     void Update()
     {
         m_countdown -= Time.deltaTime;
+        m_onCountdownUpdate.Invoke(m_countdown / m_maxCountdown);
+
+        if(m_countdown <= 0.0f) 
+        {
+            GameOver();
+        }
     }
 
 
     public void OnLoopEnterBowl(LoopColor color)
     {
         m_score += 1;
+        m_onScoreUpdate.Invoke(m_score, 1);
         m_spawnManager.LoopScored();
 
         if(m_spawnManager.HasWaveFinished()) 
@@ -60,6 +77,12 @@ public class GameManager : MonoBehaviour
     public void OnLoopExitBowl(LoopColor color)
     {
         m_score -= 1;
+        m_onScoreUpdate.Invoke(m_score, -1);
         m_spawnManager.LoopDeducted();
+    }
+
+    private void GameOver()
+    {
+
     }
 }

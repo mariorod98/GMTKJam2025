@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using UnityEngine;
 using UnityEngine.Assertions;
+using UnityEngine.Events;
 
 public class SpawnManager : MonoBehaviour
 {
@@ -14,12 +15,15 @@ public class SpawnManager : MonoBehaviour
 	[SerializeField] private int m_waves;
 
 	private int m_nextLoop = 0;
-	private int m_loopsScored = 0;
+	private int m_loopsLeft = 0;
+
+    public UnityEvent<int, int> m_onLoopsLeftUpdate;
 
     public void SpawnWave()
 	{
 		m_waves += 1;
-        m_loopsScored = 0;
+        m_loopsLeft = m_loopsPerWave;
+        m_onLoopsLeftUpdate.Invoke(m_loopsPerWave, 0);
         for (int i = 0; i < m_loopsPerWave; ++i)
         {
             float waitTime = Random.Range(0f, 1f);
@@ -31,17 +35,19 @@ public class SpawnManager : MonoBehaviour
 
 	public bool HasWaveFinished()
 	{
-		return m_loopsScored == m_loopsPerWave;
+		return m_loopsLeft == 0;
     }
 
 	public void LoopScored()
 	{
-		m_loopsScored += 1;
+        m_loopsLeft -= 1;
+        m_onLoopsLeftUpdate.Invoke(m_loopsLeft, -1);
     }
 
 	public void LoopDeducted()
 	{
-        m_loopsScored -= 1;
+        m_loopsLeft += 1;
+        m_onLoopsLeftUpdate.Invoke(m_loopsLeft, +1);
     }
 
     private IEnumerator SpawnLoop(GameObject toSpawn, float time)
