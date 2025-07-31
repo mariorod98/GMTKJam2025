@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class InputManager : MonoBehaviour
 {
-	[SerializeField] Rigidbody m_pickedRb = null;
+	[SerializeField] List<Rigidbody> m_pickedRbs = new List<Rigidbody>();
 	[SerializeField] LayerMask m_mouseLayerMask;
 	[SerializeField] float m_dragForceMultiplier = 10f; // approach 2
 	[SerializeField] float m_dragHeight = 1f; // approach 3
+	[SerializeField] float m_pickSphereSize = 0.5f; 
  
 	// Start is called before the first frame update
 	void Start()
@@ -19,7 +20,7 @@ public class InputManager : MonoBehaviour
 	{
 		if (Input.GetMouseButton(0))
 		{
-			if (m_pickedRb == null)
+			if (m_pickedRbs.Count == 0)
 			{
 				OnMouseDown();
 			}
@@ -32,7 +33,7 @@ public class InputManager : MonoBehaviour
 
 	private void FixedUpdate()
 	{
-		if (m_pickedRb != null && Input.GetMouseButton(0))
+		if (m_pickedRbs.Count != 0 && Input.GetMouseButton(0))
 		{
 			OnMouseDrag();
 		}
@@ -44,14 +45,26 @@ public class InputManager : MonoBehaviour
 		RaycastHit hit;
 		Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
-		if (Physics.Raycast(ray, out hit, Mathf.Infinity, m_mouseLayerMask))
+		if (Physics.SphereCast(ray, 0.05f, out hit, Mathf.Infinity, m_mouseLayerMask))
 		{
-			m_pickedRb = hit.rigidbody;
+			Vector3 sphereCenter = hit.point;
+			LoopColor color = hit.rigidbody.GetComponent<Loop>().m_loopColor;
 
-			m_pickedRb = hit.rigidbody;
-			m_pickedRb.useGravity = false;
-			m_pickedRb.velocity = Vector3.zero;
-			m_pickedRb.angularVelocity = Vector3.zero;
+			Collider[] loops = Physics.OverlapSphere(sphereCenter, m_pickSphereSize, m_mouseLayerMask);
+
+			foreach(Collider loopCollider in loops)
+			{
+                if(loopCollider.GetComponent<Loop>().m_loopColor == color)
+				{
+					Rigidbody rb = loopCollider.attachedRigidbody;
+                    m_pickedRbs.Add(rb);
+                    rb = hit.rigidbody;
+                    rb.useGravity = false;
+                    rb.velocity = Vector3.zero;
+                    rb.angularVelocity = Vector3.zero;
+
+                }
+            }
 		}
 	}
 
@@ -68,21 +81,29 @@ public class InputManager : MonoBehaviour
 		//Debug.Log("force = " + (direction * m_dragForceMultiplier).ToString());
 
 		// Approach 3
+		//Vector3 targetPosition = new Vector3(mouseWorldPos.x, m_dragHeight, mouseWorldPos.z);
+		//Vector3 direction = targetPosition - m_pickedRb.position;
+		
 		Vector3 targetPosition = new Vector3(mouseWorldPos.x, m_dragHeight, mouseWorldPos.z);
-		Vector3 direction = targetPosition - m_pickedRb.position;
+		foreach(Rigidbody rb in m_pickedRbs)
+		{
+			Vector3 direction = targetPosition - rb.position;
 
-		// Snap without building up momentum
-		m_pickedRb.MovePosition(targetPosition);
+            // Snap without building up momentum
+            rb.MovePosition(targetPosition);
+		}
+
 	}
 
 	private void OnMouseUp()
 	{
-		if (m_pickedRb)
-		{
-			m_pickedRb.useGravity = true;
-			m_pickedRb = null;
+        foreach (Rigidbody rb in m_pickedRbs)
+        {
+            rb.useGravity = true;
 		}
-	}
+
+        m_pickedRbs.Clear();
+    }
 
 	private void OnDrawGizmos()
 	{
