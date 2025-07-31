@@ -2,44 +2,54 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
 using UnityEngine;
+using UnityEngine.Assertions;
 
 public class SpawnManager : MonoBehaviour
 {
-	[SerializeField] List<GameObject> m_pool = new List<GameObject>();
-	[SerializeField] List<Material> m_materials = new List<Material>();
-	[SerializeField] BoxCollider m_spawnArea;
-	[SerializeField] Vector3 m_despawnPos;
+	[SerializeField] private List<GameObject> m_pool = new List<GameObject>();
+	[SerializeField] private List<Material> m_materials = new List<Material>();
+	[SerializeField] private BoxCollider m_spawnArea;
+	[SerializeField] private Vector3 m_despawnPos;
+	[SerializeField] private int m_loopsPerWave;
+	[SerializeField] private int m_waves;
 
-	float _spawnCountdown = 0f;
+	private int m_nextLoop = 0;
+	private int m_loopsScored = 0;
 
-	// Start is called before the first frame update
-	void Start()
+    public void SpawnWave()
 	{
-	}
+		m_waves += 1;
+        m_loopsScored = 0;
+        for (int i = 0; i < m_loopsPerWave; ++i)
+        {
+            float waitTime = Random.Range(0f, 1f);
+            GameObject toSpawn = m_pool[m_nextLoop];
+            m_nextLoop = m_nextLoop + 1 < m_pool.Count ? m_nextLoop + 1 : 0;
+            StartCoroutine(SpawnLoop(toSpawn, waitTime));
+        }
+    }
 
-	// Update is called once per frame
-	void Update()
+	public bool HasWaveFinished()
 	{
-		_spawnCountdown -= Time.deltaTime;
+		return m_loopsScored == m_loopsPerWave;
+    }
 
-		if (_spawnCountdown <= 0.0f)
+	public void LoopScored()
+	{
+		m_loopsScored += 1;
+    }
+
+	public void LoopDeducted()
+	{
+        m_loopsScored -= 1;
+    }
+
+    private IEnumerator SpawnLoop(GameObject toSpawn, float time)
+	{
+		yield return new WaitForSeconds(time);
+		if(toSpawn.activeSelf == true)
 		{
-			NextLoop();
-			_spawnCountdown = Random.Range(0f, 0.1f);
-		}
-	}
-
-	void NextLoop()
-	{
-		SpawnLoop();
-	}
-
-	public bool SpawnLoop()
-	{
-		GameObject toSpawn = m_pool.Find(x => x.activeSelf == false);
-		if (toSpawn == null) 
-		{
-			return false;
+			DespawnLoop(toSpawn);
 		}
 
 		Vector3 center = m_spawnArea.center + transform.position;
@@ -56,10 +66,10 @@ public class SpawnManager : MonoBehaviour
 		toSpawn.GetComponent<Renderer>().material.color = m_materials[loopColorIdx].color;
 
         toSpawn.SetActive(true);
-		return true;
+		yield return true;
 	}
 
-	public void DespawnLoop(GameObject loop)
+    private void DespawnLoop(GameObject loop)
 	{
         loop.transform.position = m_despawnPos;
         loop.GetComponent<Rigidbody>().isKinematic = true;
