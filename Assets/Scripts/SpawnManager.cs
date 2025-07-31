@@ -15,13 +15,6 @@ public class SpawnManager : MonoBehaviour
 	// Start is called before the first frame update
 	void Start()
 	{
-		int startingSpawn = m_pool.Count / 10;
-		for(int i = 0; i < startingSpawn; ++i)
-		{
-			NextLoop();
-		}
-
-		_spawnCountdown = Random.Range(0f, 4f);
 	}
 
 	// Update is called once per frame
@@ -32,7 +25,7 @@ public class SpawnManager : MonoBehaviour
 		if (_spawnCountdown <= 0.0f)
 		{
 			NextLoop();
-			_spawnCountdown = Random.Range(0f, 4f);
+			_spawnCountdown = Random.Range(0f, 0.1f);
 		}
 	}
 
@@ -55,6 +48,7 @@ public class SpawnManager : MonoBehaviour
 		Vector3 spawnPos = center + new Vector3(Random.Range(-extent.x, extent.x), Random.Range(-extent.y, extent.y), Random.Range(-extent.z, extent.z));
 		Debug.Log("Spawned loop at " + spawnPos.ToString());
 		toSpawn.transform.position = spawnPos;
+		toSpawn.transform.rotation = Random.rotation;
 		toSpawn.GetComponent<Rigidbody>().isKinematic = false;
 		
 		int loopColorIdx = Random.Range(0, (int)LoopColor.Size);
