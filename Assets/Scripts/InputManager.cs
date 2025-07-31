@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class InputManager : MonoBehaviour
 {
-	[SerializeField] Rigidbody _pickedRb = null;
-	[SerializeField] LayerMask _mouseLayerMask;
-	[SerializeField] float _dragForceMultiplier = 10f; // approach 2
-	[SerializeField] float _dragHeight = 1f; // approach 3
+	[SerializeField] Rigidbody m_pickedRb = null;
+	[SerializeField] LayerMask m_mouseLayerMask;
+	[SerializeField] float m_dragForceMultiplier = 10f; // approach 2
+	[SerializeField] float m_dragHeight = 1f; // approach 3
  
 	// Start is called before the first frame update
 	void Start()
@@ -19,7 +19,7 @@ public class InputManager : MonoBehaviour
 	{
 		if (Input.GetMouseButton(0))
 		{
-			if (_pickedRb == null)
+			if (m_pickedRb == null)
 			{
 				OnMouseDown();
 			}
@@ -32,7 +32,7 @@ public class InputManager : MonoBehaviour
 
 	private void FixedUpdate()
 	{
-		if (_pickedRb != null && Input.GetMouseButton(0))
+		if (m_pickedRb != null && Input.GetMouseButton(0))
 		{
 			OnMouseDrag();
 		}
@@ -44,43 +44,43 @@ public class InputManager : MonoBehaviour
 		RaycastHit hit;
 		Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
-		if (Physics.Raycast(ray, out hit, Mathf.Infinity, _mouseLayerMask))
+		if (Physics.Raycast(ray, out hit, Mathf.Infinity, m_mouseLayerMask))
 		{
-			_pickedRb = hit.rigidbody;
+			m_pickedRb = hit.rigidbody;
 
-            _pickedRb = hit.rigidbody;
-            _pickedRb.useGravity = false;
-            _pickedRb.velocity = Vector3.zero;
-            _pickedRb.angularVelocity = Vector3.zero;
-        }
+			m_pickedRb = hit.rigidbody;
+			m_pickedRb.useGravity = false;
+			m_pickedRb.velocity = Vector3.zero;
+			m_pickedRb.angularVelocity = Vector3.zero;
+		}
 	}
 
 	private void OnMouseDrag()
 	{
 		Vector3 mouseWorldPos = GetMouseWorldPosition();
-		//Vector3 direction = (mouseWorldPos - _pickedRb.position);
+		//Vector3 direction = (mouseWorldPos - m_pickedRb.position);
 		
 		// Approach 1
-		//_pickedRb.position += direction;
+		//m_pickedRb.position += direction;
 
 		// Approach 2
-        //_pickedRb.AddForce(direction * _dragForceMultiplier, ForceMode.Force);
-        //Debug.Log("force = " + (direction * _dragForceMultiplier).ToString());
+		//m_pickedRb.AddForce(direction * m_dragForceMultiplier, ForceMode.Force);
+		//Debug.Log("force = " + (direction * m_dragForceMultiplier).ToString());
 
 		// Approach 3
-        Vector3 targetPosition = new Vector3(mouseWorldPos.x, _dragHeight, mouseWorldPos.z);
-        Vector3 direction = targetPosition - _pickedRb.position;
+		Vector3 targetPosition = new Vector3(mouseWorldPos.x, m_dragHeight, mouseWorldPos.z);
+		Vector3 direction = targetPosition - m_pickedRb.position;
 
-        // Snap without building up momentum
-        _pickedRb.MovePosition(targetPosition);
-    }
+		// Snap without building up momentum
+		m_pickedRb.MovePosition(targetPosition);
+	}
 
 	private void OnMouseUp()
 	{
-		if (_pickedRb)
+		if (m_pickedRb)
 		{
-			_pickedRb.useGravity = true;
-			_pickedRb = null;
+			m_pickedRb.useGravity = true;
+			m_pickedRb = null;
 		}
 	}
 
@@ -94,7 +94,7 @@ public class InputManager : MonoBehaviour
 	{
 		Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
-        Plane dragPlane = new Plane(Vector3.up, Vector3.up * 3.5f); // Adjust plane as needed
+		Plane dragPlane = new Plane(Vector3.up, Vector3.up * 3.5f); // Adjust plane as needed
 		if (dragPlane.Raycast(ray, out float distance))
 		{
 			return ray.GetPoint(distance);
