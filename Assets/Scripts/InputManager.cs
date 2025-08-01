@@ -62,7 +62,6 @@ public class InputManager : MonoBehaviour
                     rb.useGravity = false;
                     rb.velocity = Vector3.zero;
                     rb.angularVelocity = Vector3.zero;
-
                 }
             }
 		}
