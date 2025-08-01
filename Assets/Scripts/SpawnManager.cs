@@ -1,27 +1,30 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.Events;
 
 public class SpawnManager : MonoBehaviour
 {
-	[SerializeField] private List<GameObject> m_pool = new List<GameObject>();
-	[SerializeField] private List<Material> m_materials = new List<Material>();
 	[SerializeField] private BoxCollider m_spawnArea;
     [SerializeField] GameObject m_loopsRoot = null;
     [SerializeField] private Vector3 m_despawnPos;
-	[SerializeField] private int m_loopsPerWave;
     [SerializeField] private float m_secondsBeforeWave = 1.0f;
 
-    private int m_waves;
-	private int m_nextLoop = 0;
-	private int m_loopsLeft = 0;
+	[SerializeField] private List<Material> m_materials = new List<Material>();
+	[SerializeField] private List<int> m_loopsPerWave;
 
+    [Header("Events")]
     public UnityEvent<int, int> m_onLoopsLeftUpdate;
     public UnityEvent<int, int> m_onRoundUpdate;
     public UnityEvent m_onWaveStart;
+
+	private List<GameObject> m_pool = new List<GameObject>();
+    private int m_waves;
+	private int m_nextLoop = 0;
+	private int m_loopsLeft = 0;
 
     public void StartSpawn()
     {
@@ -34,10 +37,11 @@ public class SpawnManager : MonoBehaviour
     public void NextWave()
     {
         m_waves += 1;
+        int loopsPerWaveIdx = m_waves >= m_loopsPerWave.Count ? m_loopsPerWave.Count - 1 : m_waves;
+        m_loopsLeft = m_loopsPerWave[loopsPerWaveIdx];
+        m_onLoopsLeftUpdate.Invoke(m_loopsPerWave[loopsPerWaveIdx], 0);
         m_onRoundUpdate.Invoke(m_waves, 1);
-        m_loopsLeft = m_loopsPerWave;
-        m_onLoopsLeftUpdate.Invoke(m_loopsPerWave, 0);
-        StartCoroutine(SpawnWave());
+        StartCoroutine(SpawnWave(m_loopsLeft));
     }
 
     public void EndSpawn()
@@ -78,6 +82,8 @@ public class SpawnManager : MonoBehaviour
         Vector3 spawnPos = center + new Vector3(Random.Range(-extent.x, extent.x), Random.Range(-extent.y, extent.y), Random.Range(-extent.z, extent.z));
         loop.transform.position = spawnPos;
         loop.transform.rotation = Random.rotation;
+
+        loop.GetComponent<Rigidbody>().velocity = Vector3.zero;
     }
 
     private void Start()
@@ -88,11 +94,11 @@ public class SpawnManager : MonoBehaviour
         }
     }
 
-    private IEnumerator SpawnWave()
+    private IEnumerator SpawnWave(int waveSize)
     {
         yield return new WaitForSeconds(m_secondsBeforeWave);
 
-        for (int i = 0; i < m_loopsPerWave; ++i)
+        for (int i = 0; i < waveSize; ++i)
         {
             float waitTime = Random.Range(0f, 1f);
             GameObject toSpawn = m_pool[m_nextLoop];

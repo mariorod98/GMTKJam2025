@@ -30,6 +30,7 @@ public class GameManager : MonoBehaviour
 
     public UnityEvent<float> m_onCountdownUpdate;
     public UnityEvent<int, int> m_onScoreUpdate;
+    public UnityEvent<int, int> m_onTotalLoopsUpdate;
 
     [SerializeField] private float m_maxCountdown = 20.0f;
 
@@ -49,20 +50,6 @@ public class GameManager : MonoBehaviour
         m_spawnManager.StartSpawn();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        if (m_countdownStart) {
-            m_countdown -= Time.deltaTime;
-            m_onCountdownUpdate.Invoke(m_countdown / m_maxCountdown);
-
-            if (m_countdown <= 0.0f)
-            {
-                GameOver();
-            }
-        }
-    }
-
     public void OnWaveStart()
     {
         m_countdownStart = true;
@@ -74,11 +61,13 @@ public class GameManager : MonoBehaviour
         m_score += 1;
         m_totalLoops += 1;
         m_onScoreUpdate.Invoke(m_score, 1);
+        m_onTotalLoopsUpdate.Invoke(m_totalLoops, 1);
+
         m_spawnManager.LoopScored();
 
         if(m_spawnManager.HasWaveFinished()) 
         {
-            m_spawnManager.NextWave();
+            EndRound();
         }
     }
 
@@ -88,7 +77,29 @@ public class GameManager : MonoBehaviour
         m_totalLoops -= 1;
 
         m_onScoreUpdate.Invoke(m_score, -1);
+        m_onTotalLoopsUpdate.Invoke(m_totalLoops, -1);
         m_spawnManager.LoopDeducted();
+    }
+
+    private void Update()
+    {
+        if (m_countdownStart)
+        {
+            m_countdown -= Time.deltaTime;
+            m_onCountdownUpdate.Invoke(m_countdown / m_maxCountdown);
+
+            if (m_countdown <= 0.0f)
+            {
+                GameOver();
+            }
+        }
+    }
+
+    private void EndRound()
+    {
+        m_countdownStart = false;
+        m_countdown = m_maxCountdown;
+        m_spawnManager.NextWave();
     }
 
     private void GameOver()
