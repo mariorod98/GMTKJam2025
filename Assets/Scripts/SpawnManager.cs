@@ -13,21 +13,31 @@ public class SpawnManager : MonoBehaviour
     [SerializeField] GameObject m_loopsRoot = null;
     [SerializeField] private Vector3 m_despawnPos;
 	[SerializeField] private int m_loopsPerWave;
-	private int m_waves;
+    [SerializeField] private float m_secondsBeforeWave = 1.0f;
 
+    private int m_waves;
 	private int m_nextLoop = 0;
 	private int m_loopsLeft = 0;
 
     public UnityEvent<int, int> m_onLoopsLeftUpdate;
     public UnityEvent<int, int> m_onRoundUpdate;
+    public UnityEvent m_onWaveStart;
 
     public void StartSpawn()
     {
         m_loopsLeft = 0;
         m_nextLoop = 0;
         m_waves = 0;
+        NextWave();
+    }
 
-        SpawnWave();
+    public void NextWave()
+    {
+        m_waves += 1;
+        m_onRoundUpdate.Invoke(m_waves, 1);
+        m_loopsLeft = m_loopsPerWave;
+        m_onLoopsLeftUpdate.Invoke(m_loopsPerWave, 0);
+        StartCoroutine(SpawnWave());
     }
 
     public void EndSpawn()
@@ -41,21 +51,6 @@ public class SpawnManager : MonoBehaviour
         }
 
         m_nextLoop = 0;
-    }
-
-    public void SpawnWave()
-	{
-		m_waves += 1;
-        m_onRoundUpdate.Invoke(m_waves, 1);
-        m_loopsLeft = m_loopsPerWave;
-        m_onLoopsLeftUpdate.Invoke(m_loopsPerWave, 0);
-        for (int i = 0; i < m_loopsPerWave; ++i)
-        {
-            float waitTime = Random.Range(0f, 1f);
-            GameObject toSpawn = m_pool[m_nextLoop];
-            m_nextLoop = m_nextLoop + 1 < m_pool.Count ? m_nextLoop + 1 : 0;
-            StartCoroutine(SpawnLoop(toSpawn, waitTime));
-        }
     }
 
 	public bool HasWaveFinished()
@@ -91,6 +86,22 @@ public class SpawnManager : MonoBehaviour
         {
             m_pool.Add(child.gameObject);
         }
+    }
+
+    private IEnumerator SpawnWave()
+    {
+        yield return new WaitForSeconds(m_secondsBeforeWave);
+
+        for (int i = 0; i < m_loopsPerWave; ++i)
+        {
+            float waitTime = Random.Range(0f, 1f);
+            GameObject toSpawn = m_pool[m_nextLoop];
+            m_nextLoop = m_nextLoop + 1 < m_pool.Count ? m_nextLoop + 1 : 0;
+            StartCoroutine(SpawnLoop(toSpawn, waitTime));
+        }
+
+        m_onWaveStart.Invoke();
+        yield return true;
     }
 
     private IEnumerator SpawnLoop(GameObject loop, float time)

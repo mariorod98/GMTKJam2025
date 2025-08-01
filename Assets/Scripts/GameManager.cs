@@ -32,36 +32,21 @@ public class GameManager : MonoBehaviour
     public UnityEvent<int, int> m_onScoreUpdate;
 
     [SerializeField] private float m_maxCountdown = 20.0f;
-    [SerializeField] private float m_secondsBeforeFirstWave = 2.0f;
 
     private int m_score = 0;
+    private int m_totalLoops = 0;
     private float m_countdown = 0.0f;
     private bool m_countdownStart = false;
-
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        // TODO: REMOVE
-        StartGame();
-    }
 
     public void StartGame()
     {
         m_score = 0;
+        m_totalLoops = 0;
         m_countdown = m_maxCountdown;
         m_onScoreUpdate.Invoke(0, 0);
         m_onCountdownUpdate.Invoke(1.0f);
         m_uiManager.Show(UIScreen.HUD);
-        StartCoroutine(StartDelayedGame());
-    }
-
-    private IEnumerator StartDelayedGame()
-    {
-        yield return new WaitForSeconds(m_secondsBeforeFirstWave);
         m_spawnManager.StartSpawn();
-        m_countdownStart = true;
-        yield return true;
     }
 
     // Update is called once per frame
@@ -78,22 +63,30 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void OnWaveStart()
+    {
+        m_countdownStart = true;
+    }
+
 
     public void OnLoopEnterBowl(LoopColor color)
     {
         m_score += 1;
+        m_totalLoops += 1;
         m_onScoreUpdate.Invoke(m_score, 1);
         m_spawnManager.LoopScored();
 
         if(m_spawnManager.HasWaveFinished()) 
         {
-            m_spawnManager.SpawnWave();
+            m_spawnManager.NextWave();
         }
     }
 
     public void OnLoopExitBowl(LoopColor color)
     {
         m_score -= 1;
+        m_totalLoops -= 1;
+
         m_onScoreUpdate.Invoke(m_score, -1);
         m_spawnManager.LoopDeducted();
     }

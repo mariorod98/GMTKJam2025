@@ -68679,6 +68679,14 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 1181165470684645644, guid: e5027200f831ced4bb514ae2d26e39c2, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1319466835203640168, guid: e5027200f831ced4bb514ae2d26e39c2, type: 3}
+      propertyPath: m_startMenu
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 1319466835203640168, guid: e5027200f831ced4bb514ae2d26e39c2, type: 3}
       propertyPath: m_roundsText
       value: 
@@ -68727,8 +68735,13 @@ PrefabInstance:
       propertyPath: m_Name
       value: UIManager
       objectReference: {fileID: 0}
+    - target: {fileID: 8106949025764589319, guid: e5027200f831ced4bb514ae2d26e39c2, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 4862647448039303490, guid: e5027200f831ced4bb514ae2d26e39c2, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e5027200f831ced4bb514ae2d26e39c2, type: 3}
