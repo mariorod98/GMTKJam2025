@@ -15,4 +15,6 @@ This is my entry for the GMTK GameJam of 2025 with the topic of *loops*.
 **Donut icons** (https://www.flaticon.com/free-icons/donut) created by Freepik - Flaticon under Flaticon License (https://media.flaticon.com/license/license.pdf)
 
 ### Others
-Scanned Cheerios has been modified 
+Scanned Cheerios has been modified by Niklas Kirchmer.
+[Artstation](https://www.artstation.com/niklaskirchmer)
+[LinkedIn](https://www.linkedin.com/in/niklas-kirchmer)

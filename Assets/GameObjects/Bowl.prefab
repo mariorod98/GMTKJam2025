@@ -145,6 +145,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_loopColor: 0
+  m_onLoopEnteredBowl:
+    m_PersistentCalls:
+      m_Calls: []
+  m_onLoopExitedBowl:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!135 &1435250541308763285
 SphereCollider:
   m_ObjectHideFlags: 0

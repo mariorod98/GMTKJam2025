@@ -7848,7 +7848,7 @@ Transform:
   m_GameObject: {fileID: 269496075}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 30, z: 0}
+  m_LocalPosition: {x: 0, y: 40, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -7873,7 +7873,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 8, y: 10, z: 8}
+  m_Size: {x: 8, y: 20, z: 8}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &269496078
 MonoBehaviour:
@@ -7890,7 +7890,7 @@ MonoBehaviour:
   m_spawnArea: {fileID: 269496077}
   m_loopsRoot: {fileID: 2082298153}
   m_despawnPos: {x: 0, y: -10, z: 0}
-  m_secondsBeforeWave: 2
+  m_secondsBeforeWave: 0
   m_materials:
   - {fileID: 2100000, guid: 05eb058555722e844a724191d845278d, type: 2}
   - {fileID: 2100000, guid: 5466e21433fd99a4788c14e77093e3b0, type: 2}
@@ -40940,6 +40940,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1352636611}
   - component: {fileID: 1352636612}
+  - component: {fileID: 1352636613}
   m_Layer: 0
   m_Name: InputManager
   m_TagString: Untagged
@@ -40969,7 +40970,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1352636610}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d43b5403c0e990747ba18ebb037a84ab, type: 3}
   m_Name: 
@@ -40981,6 +40982,24 @@ MonoBehaviour:
   m_dragForceMultiplier: 10
   m_dragHeight: 8
   m_pickSphereSize: 2
+  m_inputMode: 1
+--- !u!114 &1352636613
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1352636610}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 93980c3f94c172f45b2452b4c5d6ae6d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  draggableLayers:
+    serializedVersion: 2
+    m_Bits: 8
+  snapSpeed: 100
+  releaseVelocityFactor: 0.2
 --- !u!1001 &1356223003
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -68708,6 +68727,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: UIManager
       objectReference: {fileID: 0}
+    - target: {fileID: 6461281914046742348, guid: e5027200f831ced4bb514ae2d26e39c2, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6526635421463118183, guid: e5027200f831ced4bb514ae2d26e39c2, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -70819,7 +70842,7 @@ PrefabInstance:
       objectReference: {fileID: 1352636612}
     - target: {fileID: 4821033110782141872, guid: 7baa0c7bb3051464db5516f2757f8a8b, type: 3}
       propertyPath: m_maxCountdown
-      value: 30
+      value: 1000
       objectReference: {fileID: 0}
     - target: {fileID: 4821033110782141872, guid: 7baa0c7bb3051464db5516f2757f8a8b, type: 3}
       propertyPath: m_spawnManager
