@@ -15,11 +15,9 @@ public class SpawnManager : MonoBehaviour
 
     [Header("Events")]
     public UnityEvent<int, int> m_onLoopsLeftUpdate;
-    public UnityEvent<int, int> m_onRoundUpdate;
     public UnityEvent m_onWaveStart;
 
 	private List<GameObject> m_pool = new List<GameObject>();
-    private int m_waves;
 	private int m_nextLoop = 0;
 	private int m_loopsLeft = 0;
 
@@ -27,19 +25,17 @@ public class SpawnManager : MonoBehaviour
     {
         m_loopsLeft = 0;
         m_nextLoop = 0;
-        m_waves = 0;
     }
 
-    public void NextWave()
+    public void StarSpawn()
     {
-        m_waves += 1;
+        ResetSpawn();
         m_loopsLeft = Mathf.Min((int)(m_loopsPerWave * ModifierManager.Instance.m_loopsMultiplierModifier), m_pool.Count);
         m_onLoopsLeftUpdate.Invoke(m_loopsLeft, 0);
-        m_onRoundUpdate.Invoke(m_waves, 1);
         StartCoroutine(SpawnWave(m_loopsLeft));
     }
 
-    public void EndSpawn()
+    public void ResetSpawn()
     {
         foreach(GameObject go in m_pool)
         {

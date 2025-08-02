@@ -31,12 +31,14 @@ public class GameManager : MonoBehaviour
     public UnityEvent<float> m_onCountdownUpdate;
     public UnityEvent<int, int> m_onScoreUpdate;
     public UnityEvent<int, int> m_onTotalLoopsUpdate;
+    public UnityEvent<int, int> m_onRoundUpdate;
 
     public UnityEvent<ModifierChoice, ModifierChoice, ModifierChoice> m_onModifierChoiceStarted;
 
     [SerializeField] private float m_maxCountdown = 20.0f;
     [SerializeField] private List<ModifierChoice> m_modifierChoices = new List<ModifierChoice>();
 
+    private int m_rounds;
     private int m_score = 0;
     private int m_totalLoops = 0;
     private float m_countdown = 0.0f;
@@ -51,6 +53,7 @@ public class GameManager : MonoBehaviour
 
     public void StartGame()
     {
+        m_rounds = 0;
         m_score = 0;
         m_totalLoops = 0;
         m_onScoreUpdate.Invoke(0, 0);
@@ -111,10 +114,12 @@ public class GameManager : MonoBehaviour
 
     private void StartRound()
     {
+        m_rounds += 1;
         m_countdown = m_maxCountdown;
         m_onCountdownUpdate.Invoke(1.0f);
+        m_onRoundUpdate.Invoke(m_rounds, 1);
         m_uiManager.Show(UIScreen.HUD);
-        m_spawnManager.NextWave();
+        m_spawnManager.StarSpawn();
     }
 
     private void EndRound()
@@ -136,7 +141,7 @@ public class GameManager : MonoBehaviour
     private void GameOver()
     {
         m_countdownStart = false;
-        m_spawnManager.EndSpawn();
+        m_spawnManager.ResetSpawn();
         m_uiManager.Show(UIScreen.EndMenu);
     }
 }
