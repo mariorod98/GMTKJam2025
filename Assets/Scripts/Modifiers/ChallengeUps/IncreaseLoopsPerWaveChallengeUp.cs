@@ -3,16 +3,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class IncreaseLoopsPerWaveChallengeUp : BaseModifier
+public class IncreaseLoopsPerWaveChallengeUp : ChallengeUp
 {
     public IncreaseLoopsPerWaveChallengeUp()
     {
-        m_type = ModifierType.ChallengeUp;
+        m_type = ChallengeUpType.IncreaseLoopsPerWave;
     }
 
     public IncreaseLoopsPerWaveChallengeUp(float value)
     {
-        m_type = ModifierType.PowerUp;
+        m_type = ChallengeUpType.IncreaseLoopsPerWave;
         m_floatModifier = value;
     }
 

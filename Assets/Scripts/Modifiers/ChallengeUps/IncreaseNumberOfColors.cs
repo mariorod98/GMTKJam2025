@@ -3,16 +3,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class IncreaseNumberOfColorsChallengeUp : BaseModifier
+public class IncreaseNumberOfColorsChallengeUp : ChallengeUp
 {
     public IncreaseNumberOfColorsChallengeUp()
     {
-        m_type = ModifierType.ChallengeUp;
+        m_type = ChallengeUpType.IncreaseNumberOfColors;
     }
 
     public IncreaseNumberOfColorsChallengeUp(int value)
     {
-        m_type = ModifierType.PowerUp;
+        m_type = ChallengeUpType.IncreaseNumberOfColors;
         m_intModifier = value;
     }
 

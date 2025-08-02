@@ -36,7 +36,6 @@ public class GameManager : MonoBehaviour
     public UnityEvent<ModifierChoice, ModifierChoice, ModifierChoice> m_onModifierChoiceStarted;
 
     [SerializeField] private float m_maxCountdown = 20.0f;
-    [SerializeField] private List<ModifierChoice> m_modifierChoices = new List<ModifierChoice>();
 
     private int m_rounds;
     private int m_score = 0;
@@ -44,11 +43,16 @@ public class GameManager : MonoBehaviour
     private float m_countdown = 0.0f;
     private bool m_countdownStart = false;
 
-
+    private List<ModifierChoice> m_modifierChoices = new List<ModifierChoice>();
 
     private void Start()
     {
         // StartGame();
+    }
+
+    public void IncreaseMaxCountdown(float value)
+    {
+        m_maxCountdown += value;
     }
 
     public void StartGame()
@@ -110,6 +114,11 @@ public class GameManager : MonoBehaviour
                 GameOver();
             }
         }
+
+        if(Input.GetKeyDown(KeyCode.Space))
+        {
+            EndRound();
+        }
     }
 
     private void StartRound()
@@ -125,7 +134,6 @@ public class GameManager : MonoBehaviour
     private void EndRound()
     {
         m_countdownStart = false;
-
         PickModifier();
     }
 
@@ -141,7 +149,6 @@ public class GameManager : MonoBehaviour
     private void GameOver()
     {
         m_countdownStart = false;
-        m_spawnManager.ResetSpawn();
         m_uiManager.Show(UIScreen.EndMenu);
     }
 }

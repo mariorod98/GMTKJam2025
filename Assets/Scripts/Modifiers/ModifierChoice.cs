@@ -4,15 +4,15 @@ using System;
 public class ModifierChoice
 {
     public int m_level = 0;
-    public BaseModifier m_powerUp = null;
-    public BaseModifier m_challengeUp = null;
+    public PowerUp m_powerUp = null;
+    public ChallengeUp m_challengeUp = null;
 
     public ModifierChoice()
     {
 
     }
 
-    public ModifierChoice(int level, BaseModifier powerUp, BaseModifier challengeUp)
+    public ModifierChoice(int level, PowerUp powerUp, ChallengeUp challengeUp)
     {
         m_level = level;
         m_powerUp = powerUp;

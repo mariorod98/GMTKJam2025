@@ -21,43 +21,49 @@ public class ModifierManager : MonoBehaviour
     /*** END SINGLETON BLOCK ***/
 
     /******************************************************************************/
-
-    public int m_maxPowerLevel = 3;
+    [Header("Modifiers")]
     // PowerUps
-    public float m_pickSphereSizeModifier = 1.0f;
-    public List<float> m_pickSphereSizePossibleValues;
-
-    // Challenges
+    public float m_pickRadiusModifier = 1.0f;
+    // ChallengeUps
     public float m_loopsMultiplierModifier = 1.0f;
-    public List<float> m_loopsMultiplierPossibleValues;
-
     public int m_numberOfColorsModifier = 2;
+
+    [Header("PowerUp Options")]
+    public int m_maxPowerLevel = 3;
+    public List<float> m_pickRadiusPossibleValues;
+    public List<float> m_timeModifierPossibleValues;
+    public List<float> m_bowlSizePossibleValues;
+
+    [Header("ChallengeUp Options")]
+    public List<float> m_loopsMultiplierPossibleValues;
 
     public ModifierChoice GenerateModifierChoice()
     {
         int level = Random.Range(0, m_maxPowerLevel);
-        BaseModifier powerUp = GeneratePowerUp(level);
-        BaseModifier challengeUp = GenerateChallengeUp(level);
+        PowerUp powerUp = GeneratePowerUp(level);
+        ChallengeUp challengeUp = GenerateChallengeUp(level);
         ModifierChoice choice = new ModifierChoice(level, powerUp, challengeUp);
         return choice;
     }
 
-    private BaseModifier GeneratePowerUp(int level)
+    private PowerUp GeneratePowerUp(int level)
     {
         PowerUpType powerUpType = (PowerUpType)Random.Range(0, (int)PowerUpType.Size);
 
         switch(powerUpType)
         {
-            case PowerUpType.PickSphereSize:
-                return new PickSphereSizePowerUp(m_pickSphereSizePossibleValues[level]);
+            case PowerUpType.IncreasePickRadius:
+                return new IncreasePickRadiusPowerUp(m_pickRadiusPossibleValues[level]);
+            case PowerUpType.IncreaseTime:
+                return new IncreaseTimePowerUp(m_timeModifierPossibleValues[level]);
         }
 
-        Assert.IsFalse(false, "Didn't pick a power up");
-        BaseModifier powerUp = new BaseModifier();
+        Assert.IsTrue(false, "Didn't pick a power up");
+        PowerUp powerUp = new PowerUp();
         return powerUp;
     }
 
-    private BaseModifier GenerateChallengeUp(int level) 
+    private ChallengeUp GenerateChallengeUp(int level) 
     {
         ChallengeUpType powerUpType = (ChallengeUpType)Random.Range(0, (int)ChallengeUpType.Size);
 
@@ -71,7 +77,7 @@ public class ModifierManager : MonoBehaviour
         }
 
         Assert.IsFalse(false, "Didn't pick a challenge up");
-        BaseModifier powerUp = new BaseModifier();
+        ChallengeUp powerUp = new ChallengeUp();
         return powerUp;
     }
 }

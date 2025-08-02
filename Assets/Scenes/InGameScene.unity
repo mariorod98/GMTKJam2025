@@ -68569,7 +68569,7 @@ PrefabInstance:
       objectReference: {fileID: 2082298153}
     - target: {fileID: 8512085587786202530, guid: 00c833af5b7ebb5478cd5f117dc970aa, type: 3}
       propertyPath: m_loopsPerWave
-      value: 50
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 8512085587786202530, guid: 00c833af5b7ebb5478cd5f117dc970aa, type: 3}
       propertyPath: m_onWaveStart.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -68734,8 +68734,56 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8255807575298051443, guid: a444eb6caf9f8e14194eac9873f945aa, type: 3}
+      propertyPath: m_bowlSizePossibleValues.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8255807575298051443, guid: a444eb6caf9f8e14194eac9873f945aa, type: 3}
+      propertyPath: m_pickRadiusPossibleValues.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8255807575298051443, guid: a444eb6caf9f8e14194eac9873f945aa, type: 3}
+      propertyPath: m_bowlSizePossibleValues.Array.data[0]
+      value: 0.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 8255807575298051443, guid: a444eb6caf9f8e14194eac9873f945aa, type: 3}
+      propertyPath: m_bowlSizePossibleValues.Array.data[1]
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8255807575298051443, guid: a444eb6caf9f8e14194eac9873f945aa, type: 3}
+      propertyPath: m_bowlSizePossibleValues.Array.data[2]
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8255807575298051443, guid: a444eb6caf9f8e14194eac9873f945aa, type: 3}
+      propertyPath: m_timeModifierPossibleValues.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8255807575298051443, guid: a444eb6caf9f8e14194eac9873f945aa, type: 3}
+      propertyPath: m_pickRadiusPossibleValues.Array.data[0]
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8255807575298051443, guid: a444eb6caf9f8e14194eac9873f945aa, type: 3}
+      propertyPath: m_pickRadiusPossibleValues.Array.data[1]
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8255807575298051443, guid: a444eb6caf9f8e14194eac9873f945aa, type: 3}
+      propertyPath: m_pickRadiusPossibleValues.Array.data[2]
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 8255807575298051443, guid: a444eb6caf9f8e14194eac9873f945aa, type: 3}
       propertyPath: m_loopsMultiplierPossibleValues.Array.size
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8255807575298051443, guid: a444eb6caf9f8e14194eac9873f945aa, type: 3}
+      propertyPath: m_timeModifierPossibleValues.Array.data[0]
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8255807575298051443, guid: a444eb6caf9f8e14194eac9873f945aa, type: 3}
+      propertyPath: m_timeModifierPossibleValues.Array.data[1]
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 8255807575298051443, guid: a444eb6caf9f8e14194eac9873f945aa, type: 3}
+      propertyPath: m_timeModifierPossibleValues.Array.data[2]
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 8255807575298051443, guid: a444eb6caf9f8e14194eac9873f945aa, type: 3}
       propertyPath: m_pickSphereSizePossibleValues.Array.data[1]

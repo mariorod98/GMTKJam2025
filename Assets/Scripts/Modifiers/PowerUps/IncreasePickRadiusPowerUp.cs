@@ -3,22 +3,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PickSphereSizePowerUp : BaseModifier
+public class IncreasePickRadiusPowerUp : PowerUp
 {
-    public PickSphereSizePowerUp()
+    public IncreasePickRadiusPowerUp()
     {
-        m_type = ModifierType.PowerUp;
+        m_type = PowerUpType.IncreasePickRadius;
     }
 
-    public PickSphereSizePowerUp(float value)
+    public IncreasePickRadiusPowerUp(float value)
     {
-        m_type = ModifierType.PowerUp;
+        m_type = PowerUpType.IncreasePickRadius;
         m_floatModifier = value;
     }
 
     public override void ApplyModifier()
     {
-        ModifierManager.Instance.m_pickSphereSizeModifier += m_floatModifier;
+        ModifierManager.Instance.m_pickRadiusModifier += m_floatModifier;
     }
 
     public override String GetFormattedText()
