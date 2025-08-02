@@ -2,7 +2,7 @@ using System;
 
 public enum ModifierType { PowerUp, ChallengeUp}
 public enum PowerUpType { PickSphereSize, Size}
-public enum ChallengeUpType { IncreaseLoopsPerWave, Size}
+public enum ChallengeUpType { IncreaseLoopsPerWave, IncreaseNumberOfColors, Size}
 
 [Serializable]
 public class BaseModifier

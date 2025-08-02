@@ -11,7 +11,7 @@ public class SpawnManager : MonoBehaviour
     [SerializeField] private float m_secondsBeforeWave = 1.0f;
 
 	[SerializeField] private List<Material> m_materials = new List<Material>();
-	[SerializeField] private List<int> m_loopsPerWave;
+	[SerializeField] private int m_loopsPerWave;
 
     [Header("Events")]
     public UnityEvent<int, int> m_onLoopsLeftUpdate;
@@ -33,8 +33,7 @@ public class SpawnManager : MonoBehaviour
     public void NextWave()
     {
         m_waves += 1;
-        int loopsPerWaveIdx = m_waves >= m_loopsPerWave.Count ? m_loopsPerWave.Count - 1 : m_waves;
-        m_loopsLeft = Mathf.Min((int)(m_loopsPerWave[loopsPerWaveIdx] * ModifierManager.Instance.m_loopsMultiplierModifier), m_pool.Count);
+        m_loopsLeft = Mathf.Min((int)(m_loopsPerWave * ModifierManager.Instance.m_loopsMultiplierModifier), m_pool.Count);
         m_onLoopsLeftUpdate.Invoke(m_loopsLeft, 0);
         m_onRoundUpdate.Invoke(m_waves, 1);
         StartCoroutine(SpawnWave(m_loopsLeft));
@@ -115,7 +114,7 @@ public class SpawnManager : MonoBehaviour
 		}
 
 		RespawnLoop(loop);		
-		int loopColorIdx = Random.Range(0, (int)LoopColor.Size);
+		int loopColorIdx = Random.Range(0, ModifierManager.Instance.m_numberOfColorsModifier);
 		loop.GetComponent<Loop>().m_loopColor = (LoopColor)loopColorIdx;
 		loop.GetComponentInChildren<Renderer>().material.color = m_materials[loopColorIdx].color;
 

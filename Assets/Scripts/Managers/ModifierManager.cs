@@ -30,6 +30,8 @@ public class ModifierManager : MonoBehaviour
     public float m_loopsMultiplierModifier = 1.0f;
     public List<float> m_loopsMultiplierPossibleValues;
 
+    public int m_numberOfColorsModifier = 2;
+
     public ModifierChoice GenerateModifierChoice()
     {
         BaseModifier powerUp = GeneratePowerUp();
@@ -63,6 +65,9 @@ public class ModifierManager : MonoBehaviour
             case ChallengeUpType.IncreaseLoopsPerWave:
                 int valueIdx = Random.Range(0, m_loopsMultiplierPossibleValues.Count);
                 return new IncreaseLoopsPerWaveChallengeUp(m_loopsMultiplierPossibleValues[valueIdx]);
+            case ChallengeUpType.IncreaseNumberOfColors:
+                return new IncreaseNumberOfColorsChallengeUp(1);
+
         }
 
         Assert.IsFalse(false, "Didn't pick a power up");
