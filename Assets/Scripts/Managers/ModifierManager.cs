@@ -22,6 +22,7 @@ public class ModifierManager : MonoBehaviour
 
     /******************************************************************************/
 
+    public int m_maxPowerLevel = 3;
     // PowerUps
     public float m_pickSphereSizeModifier = 1.0f;
     public List<float> m_pickSphereSizePossibleValues;
@@ -34,21 +35,21 @@ public class ModifierManager : MonoBehaviour
 
     public ModifierChoice GenerateModifierChoice()
     {
-        BaseModifier powerUp = GeneratePowerUp();
-        BaseModifier challengeUp = GenerateChallengeUp();
-        ModifierChoice choice = new ModifierChoice(powerUp, challengeUp);
+        int level = Random.Range(0, m_maxPowerLevel);
+        BaseModifier powerUp = GeneratePowerUp(level);
+        BaseModifier challengeUp = GenerateChallengeUp(level);
+        ModifierChoice choice = new ModifierChoice(level, powerUp, challengeUp);
         return choice;
     }
 
-    private BaseModifier GeneratePowerUp()
+    private BaseModifier GeneratePowerUp(int level)
     {
         PowerUpType powerUpType = (PowerUpType)Random.Range(0, (int)PowerUpType.Size);
 
         switch(powerUpType)
         {
             case PowerUpType.PickSphereSize:
-                int valueIdx = Random.Range(0, m_pickSphereSizePossibleValues.Count);
-                return new PickSphereSizePowerUp(m_pickSphereSizePossibleValues[valueIdx]);
+                return new PickSphereSizePowerUp(m_pickSphereSizePossibleValues[level]);
         }
 
         Assert.IsFalse(false, "Didn't pick a power up");
@@ -56,21 +57,20 @@ public class ModifierManager : MonoBehaviour
         return powerUp;
     }
 
-    private BaseModifier GenerateChallengeUp() 
+    private BaseModifier GenerateChallengeUp(int level) 
     {
         ChallengeUpType powerUpType = (ChallengeUpType)Random.Range(0, (int)ChallengeUpType.Size);
 
         switch (powerUpType)
         {
             case ChallengeUpType.IncreaseLoopsPerWave:
-                int valueIdx = Random.Range(0, m_loopsMultiplierPossibleValues.Count);
-                return new IncreaseLoopsPerWaveChallengeUp(m_loopsMultiplierPossibleValues[valueIdx]);
+                return new IncreaseLoopsPerWaveChallengeUp(m_loopsMultiplierPossibleValues[level]);
             case ChallengeUpType.IncreaseNumberOfColors:
                 return new IncreaseNumberOfColorsChallengeUp(1);
 
         }
 
-        Assert.IsFalse(false, "Didn't pick a power up");
+        Assert.IsFalse(false, "Didn't pick a challenge up");
         BaseModifier powerUp = new BaseModifier();
         return powerUp;
     }

@@ -27,12 +27,20 @@ public class UIManager : MonoBehaviour
     [SerializeField] Color m_progressBarEmptyColor;
 
     [Header("Modifier Menu")]
+    [SerializeField] Image m_opt1PowerUpPanel;
     [SerializeField] TMP_Text m_opt1PowerUpText;
     [SerializeField] TMP_Text m_opt1ChallengeUpText;
+
+    [SerializeField] Image m_opt2PowerUpPanel;
     [SerializeField] TMP_Text m_opt2PowerUpText;
     [SerializeField] TMP_Text m_opt2ChallengeUpText;
+
+    [SerializeField] Image m_opt3PowerUpPanel;
     [SerializeField] TMP_Text m_opt3PowerUpText;
     [SerializeField] TMP_Text m_opt3ChallengeUpText;
+
+    [SerializeField] List<Color> m_powerLevelColors;
+
 
 
     public void Show(UIScreen screen)
@@ -89,11 +97,15 @@ public class UIManager : MonoBehaviour
     {
         m_opt1PowerUpText.text = mod1.m_powerUp.GetFormattedText();
         m_opt1ChallengeUpText.text = mod1.m_challengeUp.GetFormattedText();
+        m_opt1PowerUpPanel.color = m_powerLevelColors[mod1.m_level];
 
         m_opt2PowerUpText.text = mod2.m_powerUp.GetFormattedText();
         m_opt2ChallengeUpText.text = mod2.m_challengeUp.GetFormattedText();
+        m_opt2PowerUpPanel.color = m_powerLevelColors[mod2.m_level];
 
         m_opt3PowerUpText.text = mod3.m_powerUp.GetFormattedText();
         m_opt3ChallengeUpText.text = mod3.m_challengeUp.GetFormattedText();
+        m_opt3PowerUpPanel.color = m_powerLevelColors[mod3.m_level];
+
     }
 }

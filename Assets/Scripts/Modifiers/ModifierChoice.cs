@@ -3,6 +3,7 @@ using System;
 [Serializable]
 public class ModifierChoice
 {
+    public int m_level = 0;
     public BaseModifier m_powerUp = null;
     public BaseModifier m_challengeUp = null;
 
@@ -11,8 +12,9 @@ public class ModifierChoice
 
     }
 
-    public ModifierChoice(BaseModifier powerUp, BaseModifier challengeUp)
+    public ModifierChoice(int level, BaseModifier powerUp, BaseModifier challengeUp)
     {
+        m_level = level;
         m_powerUp = powerUp;
         m_challengeUp = challengeUp;
     }
