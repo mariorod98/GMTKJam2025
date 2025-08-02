@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public enum LoopColor { Red, Orange, Yellow, Green, Blue, Purple, Size }
+public enum LoopColor { Red, Green, Orange, Blue, Yellow, Purple, Size }
 
 public class GameManager : MonoBehaviour
 {
@@ -79,13 +79,15 @@ public class GameManager : MonoBehaviour
         m_isPlaying = true;
     }
 
-    public void OnLoopEnterBowl(LoopColor color)
+    public void OnLoopEnterBowl(Loop loop)
     {
         if (!m_isPlaying) return;
 
-        AddScore(1);
+        int score = ComputeCurrentScore();
+        m_score += score;   
+        loop.OnEnterBowl(score);
         m_totalLoops += 1;
-        m_onScoreUpdate.Invoke(m_score, 1);
+        m_onScoreUpdate.Invoke(m_score, score);
         m_onTotalLoopsUpdate.Invoke(m_totalLoops, 1);
 
         m_spawnManager.LoopScored();
@@ -96,16 +98,27 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void OnLoopExitBowl(LoopColor color)
+    public void OnLoopExitBowl(Loop loop)
     {
         if (!m_isPlaying) return;
 
-        AddScore(-1);
+        m_score -= loop.m_score;
         m_totalLoops -= 1;
 
+        loop.ResetState();
         m_onScoreUpdate.Invoke(m_score, -1);
         m_onTotalLoopsUpdate.Invoke(m_totalLoops, -1);
         m_spawnManager.LoopDeducted();
+    }
+
+    public void LoopConsumed(GameObject loop)
+    {
+        m_spawnManager.DespawnLoop(loop);
+    }
+
+    public int ComputeCurrentScore()
+    {
+        return IsInBonusTime() ? ModifierManager.Instance.m_bonusScoreModifier : 1;
     }
 
     public void OnModifierSelected(int selected)
@@ -138,16 +151,6 @@ public class GameManager : MonoBehaviour
                 GameOver();
             }
         }
-
-        if(Input.GetKeyDown(KeyCode.Space))
-        {
-            EndRound();
-        }
-    }
-
-    private void AddScore(int value)
-    {
-        m_score += value * (IsInBonusTime() ? ModifierManager.Instance.m_bonusScoreModifier : 1);
     }
 
     private bool IsInBonusTime()
@@ -169,6 +172,7 @@ public class GameManager : MonoBehaviour
     private void EndRound()
     {
         m_isPlaying = false;
+        m_spawnManager.IncreaseLoopsPerWave();
         PickModifier();
     }
 

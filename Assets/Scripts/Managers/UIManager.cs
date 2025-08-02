@@ -22,6 +22,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] GameObject m_modifierMenu;
 
     [Header("HUD")]
+    [SerializeField] TMP_Text m_bonusText;
     [SerializeField] Image m_timeProgressBarImage;
     [SerializeField] Color m_progressBarNormalColor;
     [SerializeField] Color m_progressBarEmptyColor;
@@ -29,14 +30,17 @@ public class UIManager : MonoBehaviour
 
     [Header("Modifier Menu")]
     [SerializeField] Image m_opt1PowerUpPanel;
+    [SerializeField] TMP_Text m_opt1Title;
     [SerializeField] TMP_Text m_opt1PowerUpText;
     [SerializeField] TMP_Text m_opt1ChallengeUpText;
 
     [SerializeField] Image m_opt2PowerUpPanel;
+    [SerializeField] TMP_Text m_opt2Title;
     [SerializeField] TMP_Text m_opt2PowerUpText;
     [SerializeField] TMP_Text m_opt2ChallengeUpText;
 
     [SerializeField] Image m_opt3PowerUpPanel;
+    [SerializeField] TMP_Text m_opt3Title;
     [SerializeField] TMP_Text m_opt3PowerUpText;
     [SerializeField] TMP_Text m_opt3ChallengeUpText;
 
@@ -90,12 +94,11 @@ public class UIManager : MonoBehaviour
 
     public void UpdateTimeProgressBar(float percentage, float timeLeft, float bonusTimeLeft)
     {
-        float bonusTimeThreshold = 1.0f;
         float timeThreshold = 5.0f;
 
         m_timeProgressBarImage.fillAmount = percentage;
 
-        if(bonusTimeLeft > bonusTimeThreshold)
+        if(bonusTimeLeft > 0.0f)
         {
             m_timeProgressBarImage.color = m_progressBarOnBonusColor;
         }
@@ -110,21 +113,27 @@ public class UIManager : MonoBehaviour
                 m_timeProgressBarImage.color = Color.Lerp(m_progressBarEmptyColor, m_progressBarNormalColor, timeLeft / timeThreshold);
             }
         }
+
+        m_bonusText.text = "x" + (bonusTimeLeft > 0.0f ? ModifierManager.Instance.m_bonusScoreModifier : 1).ToString();
     }
 
     public void OnUpdateModifierMenu(ModifierChoice mod1, ModifierChoice mod2, ModifierChoice mod3)
     {
+        string[] tiers = { "Common", "Rare", "Epic" };
+
+        m_opt1Title.text = tiers[mod1.m_level];
         m_opt1PowerUpText.text = mod1.m_powerUp.GetFormattedText();
         m_opt1ChallengeUpText.text = mod1.m_challengeUp.GetFormattedText();
         m_opt1PowerUpPanel.color = m_powerLevelColors[mod1.m_level];
 
+        m_opt2Title.text = tiers[mod2.m_level];
         m_opt2PowerUpText.text = mod2.m_powerUp.GetFormattedText();
         m_opt2ChallengeUpText.text = mod2.m_challengeUp.GetFormattedText();
         m_opt2PowerUpPanel.color = m_powerLevelColors[mod2.m_level];
 
+        m_opt3Title.text = tiers[mod3.m_level];
         m_opt3PowerUpText.text = mod3.m_powerUp.GetFormattedText();
         m_opt3ChallengeUpText.text = mod3.m_challengeUp.GetFormattedText();
         m_opt3PowerUpPanel.color = m_powerLevelColors[mod3.m_level];
-
     }
 }

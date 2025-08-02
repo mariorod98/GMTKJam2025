@@ -79,9 +79,7 @@ public class ModifierManager : MonoBehaviour
 
     private PowerUp GeneratePowerUp(int level)
     {
-        PowerUpType powerUpType = (PowerUpType)Random.Range(0, (int)PowerUpType.Size);
-
-        switch(powerUpType)
+        switch(SelectPowerUp())
         {
             case PowerUpType.IncreasePickRadius:
                 return new IncreasePickRadiusPowerUp(m_pickRadiusPossibleValues[level]);
@@ -100,9 +98,7 @@ public class ModifierManager : MonoBehaviour
 
     private ChallengeUp GenerateChallengeUp(int level) 
     {
-        ChallengeUpType powerUpType = (ChallengeUpType)Random.Range(0, (int)ChallengeUpType.Size);
-
-        switch (powerUpType)
+        switch (SelectChallengeUp())
         {
             case ChallengeUpType.IncreaseLoopsPerWave:
                 return new IncreaseLoopsPerWaveChallengeUp(m_loopsMultiplierPossibleValues[level]);
@@ -117,5 +113,45 @@ public class ModifierManager : MonoBehaviour
         Assert.IsFalse(false, "Didn't pick a challenge up");
         ChallengeUp powerUp = new ChallengeUp();
         return powerUp;
+    }
+
+    private ChallengeUpType SelectChallengeUp()
+    {
+        List<ChallengeUpType> candidates = new List<ChallengeUpType>();
+        candidates.Add(ChallengeUpType.IncreaseLoopsPerWave);
+
+        if(m_numberOfColorsModifier < 6)
+        {
+            candidates.Add(ChallengeUpType.IncreaseNumberOfColors);
+        }
+        if(m_loopBouncinessModifier < 0.9f)
+        {
+            candidates.Add(ChallengeUpType.IncreaseLoopBounciness);
+        }
+        if (m_loopSizeVariationModifier < 5.0f)
+        {
+            candidates.Add(ChallengeUpType.IncreaseLoopSizeVariation);
+        }
+
+        return candidates[Random.Range(0, candidates.Count)];
+
+    }
+
+    private PowerUpType SelectPowerUp()
+    {
+        List<PowerUpType> candidates = new List<PowerUpType>();
+        candidates.Add(PowerUpType.IncreaseTime);
+        candidates.Add(PowerUpType.IncreaseBonusMultiplier);
+
+        if (m_bonusCountdownModifier < m_countdownModifier)
+        {
+            candidates.Add(PowerUpType.IncreaseBonusTime);
+        }
+        if (m_pickRadiusModifier < 5.0f)
+        {
+            candidates.Add(PowerUpType.IncreasePickRadius);
+        }
+
+        return candidates[Random.Range(0, candidates.Count)];
     }
 }

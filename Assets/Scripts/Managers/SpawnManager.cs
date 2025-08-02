@@ -49,7 +49,13 @@ public class SpawnManager : MonoBehaviour
         m_nextLoop = 0;
     }
 
-	public bool HasWaveFinished()
+    public void IncreaseLoopsPerWave()
+    {
+        m_loopsPerWave += 10;
+    }
+
+
+    public bool HasWaveFinished()
 	{
 		return m_loopsLeft == 0;
     }
@@ -76,6 +82,13 @@ public class SpawnManager : MonoBehaviour
         loop.transform.rotation = Random.rotation;
 
         loop.GetComponent<Rigidbody>().velocity = Vector3.zero;
+    }
+
+    public void DespawnLoop(GameObject loop)
+    {
+        loop.transform.position = m_despawnPos;
+        loop.GetComponent<Loop>().ResetState();
+        loop.SetActive(false);
     }
 
     private void Start()
@@ -118,10 +131,4 @@ public class SpawnManager : MonoBehaviour
         loop.GetComponent<SphereCollider>().material.bounciness = ModifierManager.Instance.m_loopBouncinessModifier;
         loop.SetActive(true);
 	}
-
-    private void DespawnLoop(GameObject loop)
-	{
-        loop.transform.position = m_despawnPos;
-        loop.SetActive(false);
-    }
 }

@@ -67,8 +67,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Increase the super cool power that does amazing zings a 300%
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: f4a1cb0d412e4e64cbea3ca0fec4d921, type: 2}
+  m_sharedMaterial: {fileID: -1758069633184663221, guid: f4a1cb0d412e4e64cbea3ca0fec4d921, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -336,7 +336,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 16b69337ea959d74c931b78f6c611ee1, type: 3}
+  m_Sprite: {fileID: 21300000, guid: c49a05a5d282a7446a80c8e51f2f550b, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -413,8 +413,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Option 2
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: f4a1cb0d412e4e64cbea3ca0fec4d921, type: 2}
+  m_sharedMaterial: {fileID: -1758069633184663221, guid: f4a1cb0d412e4e64cbea3ca0fec4d921, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -514,7 +514,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -120, y: 70}
+  m_AnchoredPosition: {x: -120, y: 80}
   m_SizeDelta: {x: 30, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4328550050774890212
@@ -545,7 +545,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 16b69337ea959d74c931b78f6c611ee1, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 473d39326e1eacd4bb8e84e4519d7d2f, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -622,8 +622,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Increase the super cool power that does amazing zings a 300%
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: f4a1cb0d412e4e64cbea3ca0fec4d921, type: 2}
+  m_sharedMaterial: {fileID: -1758069633184663221, guid: f4a1cb0d412e4e64cbea3ca0fec4d921, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
