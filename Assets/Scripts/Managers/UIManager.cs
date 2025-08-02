@@ -1,10 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
-public enum UIScreen { StartMenu, EndMenu, UpgradeMenu, HUD}
+public enum UIScreen { StartMenu, EndMenu, ModifierMenu, HUD}
 
 public class UIManager : MonoBehaviour
 {
@@ -13,25 +14,33 @@ public class UIManager : MonoBehaviour
     public UnityEvent<string> m_onLoopsLeftUpdate;
     public UnityEvent<string> m_onTotalLoopsUpdate;
 
+
     [Header("MenuParents")]
     [SerializeField] GameObject m_startMenu;
     [SerializeField] GameObject m_endMenu;
     [SerializeField] GameObject m_HUD;
-    [SerializeField] GameObject m_upgradeMenu;
+    [SerializeField] GameObject m_modifierMenu;
 
     [Header("HUD")]
     [SerializeField] Image m_timeProgressBarImage;
     [SerializeField] Color m_progressBarFullColor;
     [SerializeField] Color m_progressBarEmptyColor;
-    [SerializeField] Color m_scoreTextGain;
-    [SerializeField] Color m_scoreTextLose;
+
+    [Header("Modifier Menu")]
+    [SerializeField] TMP_Text m_opt1PowerUpText;
+    [SerializeField] TMP_Text m_opt1ChallengeUpText;
+    [SerializeField] TMP_Text m_opt2PowerUpText;
+    [SerializeField] TMP_Text m_opt2ChallengeUpText;
+    [SerializeField] TMP_Text m_opt3PowerUpText;
+    [SerializeField] TMP_Text m_opt3ChallengeUpText;
+
 
     public void Show(UIScreen screen)
     {
         m_startMenu.SetActive(false);
         m_endMenu.SetActive(false);
         m_HUD.SetActive(false);
-        m_upgradeMenu.SetActive(false);
+        m_modifierMenu.SetActive(false);
 
         switch (screen) 
         {
@@ -41,8 +50,8 @@ public class UIManager : MonoBehaviour
             case UIScreen.EndMenu:
                 m_endMenu.SetActive(true);
                 break;
-            case UIScreen.UpgradeMenu:
-                m_upgradeMenu.SetActive(true);
+            case UIScreen.ModifierMenu:
+                m_modifierMenu.SetActive(true);
                 break;
             case UIScreen.HUD:
                 m_HUD.SetActive(true);
@@ -74,5 +83,17 @@ public class UIManager : MonoBehaviour
     {
         m_timeProgressBarImage.fillAmount = percentage;
         m_timeProgressBarImage.color = Color.Lerp(m_progressBarEmptyColor, m_progressBarFullColor, percentage);
+    }
+
+    public void OnUpdateModifierMenu(ModifierChoice mod1, ModifierChoice mod2, ModifierChoice mod3)
+    {
+        m_opt1PowerUpText.text = mod1.m_powerUp.GetFormattedText();
+        m_opt1ChallengeUpText.text = mod1.m_challengeUp.GetFormattedText();
+
+        m_opt2PowerUpText.text = mod2.m_powerUp.GetFormattedText();
+        m_opt2ChallengeUpText.text = mod2.m_challengeUp.GetFormattedText();
+
+        m_opt3PowerUpText.text = mod3.m_powerUp.GetFormattedText();
+        m_opt3ChallengeUpText.text = mod3.m_challengeUp.GetFormattedText();
     }
 }

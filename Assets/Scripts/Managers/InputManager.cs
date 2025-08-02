@@ -5,7 +5,7 @@ using UnityEngine;
 public class InputManager : MonoBehaviour
 {
     [SerializeField] private LayerMask m_mouseLayerMask;
-    [SerializeField] private float m_pickSphereSize = 0.5f;
+    [SerializeField] private float m_basePickSphereSize = 0.5f;
     // how fast do we try to go to mouse pos
     [SerializeField] private float m_snapSpeed = 100f;
     // how strong do we want the force after releasing
@@ -75,7 +75,7 @@ public class InputManager : MonoBehaviour
 
             // If so, take all the loops of equal type in the vicinity
             Collider[] hits = Physics.OverlapSphere(
-                m_initialHitPoint, m_pickSphereSize, m_mouseLayerMask);
+                m_initialHitPoint, m_basePickSphereSize * ModifierManager.Instance.m_pickSphereSizeModifier, m_mouseLayerMask);
             foreach (Collider loopCollider in hits)
             {
                 if (loopCollider.GetComponent<Loop>().m_loopColor == color)

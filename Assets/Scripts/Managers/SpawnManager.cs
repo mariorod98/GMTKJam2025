@@ -23,20 +23,19 @@ public class SpawnManager : MonoBehaviour
 	private int m_nextLoop = 0;
 	private int m_loopsLeft = 0;
 
-    public void StartSpawn()
+    public void InitSpawn()
     {
         m_loopsLeft = 0;
         m_nextLoop = 0;
         m_waves = 0;
-        NextWave();
     }
 
     public void NextWave()
     {
         m_waves += 1;
         int loopsPerWaveIdx = m_waves >= m_loopsPerWave.Count ? m_loopsPerWave.Count - 1 : m_waves;
-        m_loopsLeft = m_loopsPerWave[loopsPerWaveIdx];
-        m_onLoopsLeftUpdate.Invoke(m_loopsPerWave[loopsPerWaveIdx], 0);
+        m_loopsLeft = Mathf.Min((int)(m_loopsPerWave[loopsPerWaveIdx] * ModifierManager.Instance.m_loopsMultiplierModifier), m_pool.Count);
+        m_onLoopsLeftUpdate.Invoke(m_loopsLeft, 0);
         m_onRoundUpdate.Invoke(m_waves, 1);
         StartCoroutine(SpawnWave(m_loopsLeft));
     }
@@ -115,9 +114,7 @@ public class SpawnManager : MonoBehaviour
 			DespawnLoop(loop);
 		}
 
-		RespawnLoop(loop);
-		loop.GetComponent<Rigidbody>().isKinematic = false;
-		
+		RespawnLoop(loop);		
 		int loopColorIdx = Random.Range(0, (int)LoopColor.Size);
 		loop.GetComponent<Loop>().m_loopColor = (LoopColor)loopColorIdx;
 		loop.GetComponentInChildren<Renderer>().material.color = m_materials[loopColorIdx].color;
@@ -129,7 +126,6 @@ public class SpawnManager : MonoBehaviour
     private void DespawnLoop(GameObject loop)
 	{
         loop.transform.position = m_despawnPos;
-        loop.GetComponent<Rigidbody>().isKinematic = true;
         loop.SetActive(false);
     }
 }
