@@ -43,7 +43,7 @@ public class GameManager : MonoBehaviour
     private int m_score = 0;
     private int m_totalLoops = 0;
     private float m_countdown = 0.0f;
-    private bool m_countdownStart = false;
+    private bool m_isPlaying = false;
     private float m_bonusCountdown = 0.0f;
 
 
@@ -52,6 +52,11 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         // StartGame();
+    }
+
+    public bool IsPlaying()
+    {
+        return m_isPlaying;
     }
 
     public void StartGame()
@@ -71,11 +76,13 @@ public class GameManager : MonoBehaviour
     private IEnumerator StartCountdown()
     {
         yield return new WaitForSeconds(m_waitTimeForCountdown);
-        m_countdownStart = true;
+        m_isPlaying = true;
     }
 
     public void OnLoopEnterBowl(LoopColor color)
     {
+        if (!m_isPlaying) return;
+
         AddScore(1);
         m_totalLoops += 1;
         m_onScoreUpdate.Invoke(m_score, 1);
@@ -91,6 +98,8 @@ public class GameManager : MonoBehaviour
 
     public void OnLoopExitBowl(LoopColor color)
     {
+        if (!m_isPlaying) return;
+
         AddScore(-1);
         m_totalLoops -= 1;
 
@@ -118,7 +127,7 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        if (m_countdownStart)
+        if (m_isPlaying)
         {
             m_countdown -= Time.deltaTime;
             m_bonusCountdown -= Time.deltaTime;
@@ -159,7 +168,7 @@ public class GameManager : MonoBehaviour
 
     private void EndRound()
     {
-        m_countdownStart = false;
+        m_isPlaying = false;
         PickModifier();
     }
 
@@ -174,7 +183,7 @@ public class GameManager : MonoBehaviour
 
     private void GameOver()
     {
-        m_countdownStart = false;
+        m_isPlaying = false;
         m_uiManager.Show(UIScreen.EndMenu);
     }
 }

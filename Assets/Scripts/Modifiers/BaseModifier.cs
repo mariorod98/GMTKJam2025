@@ -1,23 +1,5 @@
 using System;
 
-public enum PowerUpType
-{
-    IncreaseTime,
-    IncreaseBonusMultiplier,
-    IncreaseBonusTime,
-    Size,
-    IncreasePickRadius,
-    IncreaseBowlSize,
-    IncreaseBowlMagnet,
-}
-
-public enum ChallengeUpType 
-{ 
-    IncreaseLoopsPerWave, 
-    IncreaseNumberOfColors, 
-    Size,
-}
-
 [Serializable]
 public class BaseModifier
 {

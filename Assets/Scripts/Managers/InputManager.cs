@@ -34,6 +34,15 @@ public class InputManager : MonoBehaviour
 
     private void Update()
     {
+        if(!GameManager.Instance.IsPlaying())
+        {
+            if(m_isDragging)
+            {
+                EndDragging();
+            }
+            return;
+        }
+
         if (!m_isDragging && Input.GetMouseButtonDown(0))
         {
             StartDragging();

@@ -8,6 +8,7 @@ public class SpawnManager : MonoBehaviour
 	[SerializeField] private BoxCollider m_spawnArea;
     [SerializeField] GameObject m_loopsRoot = null;
     [SerializeField] private Vector3 m_despawnPos;
+    [SerializeField] private Vector3 m_baseLoopSize;
     [SerializeField] private float m_secondsBeforeWave = 1.0f;
 
 	[SerializeField] private List<Material> m_materials = new List<Material>();
@@ -113,6 +114,8 @@ public class SpawnManager : MonoBehaviour
 		loop.GetComponent<Loop>().m_loopColor = (LoopColor)loopColorIdx;
 		loop.GetComponentInChildren<Renderer>().material.color = m_materials[loopColorIdx].color;
 
+        loop.transform.localScale = m_baseLoopSize * (1.0f + Random.Range(0.0f, ModifierManager.Instance.m_loopSizeVariationModifier));
+        loop.GetComponent<SphereCollider>().material.bounciness = ModifierManager.Instance.m_loopBouncinessModifier;
         loop.SetActive(true);
 	}
 
