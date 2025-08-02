@@ -98,7 +98,6 @@ public class SpawnManager : MonoBehaviour
         }
 
         m_onWaveStart.Invoke();
-        yield return true;
     }
 
     private IEnumerator SpawnLoop(GameObject loop, float time)
@@ -115,7 +114,6 @@ public class SpawnManager : MonoBehaviour
 		loop.GetComponentInChildren<Renderer>().material.color = m_materials[loopColorIdx].color;
 
         loop.SetActive(true);
-		yield return true;
 	}
 
     private void DespawnLoop(GameObject loop)

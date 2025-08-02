@@ -23,8 +23,9 @@ public class UIManager : MonoBehaviour
 
     [Header("HUD")]
     [SerializeField] Image m_timeProgressBarImage;
-    [SerializeField] Color m_progressBarFullColor;
+    [SerializeField] Color m_progressBarNormalColor;
     [SerializeField] Color m_progressBarEmptyColor;
+    [SerializeField] Color m_progressBarOnBonusColor;
 
     [Header("Modifier Menu")]
     [SerializeField] Image m_opt1PowerUpPanel;
@@ -87,10 +88,28 @@ public class UIManager : MonoBehaviour
         m_onTotalLoopsUpdate.Invoke(score.ToString());
     }
 
-    public void UpdateTimeProgressBar(float percentage)
+    public void UpdateTimeProgressBar(float percentage, float timeLeft, float bonusTimeLeft)
     {
+        float bonusTimeThreshold = 1.0f;
+        float timeThreshold = 5.0f;
+
         m_timeProgressBarImage.fillAmount = percentage;
-        m_timeProgressBarImage.color = Color.Lerp(m_progressBarEmptyColor, m_progressBarFullColor, percentage);
+
+        if(bonusTimeLeft > bonusTimeThreshold)
+        {
+            m_timeProgressBarImage.color = m_progressBarOnBonusColor;
+        }
+        else // end of bonus
+        {
+            if (timeLeft > timeThreshold)
+            {
+                m_timeProgressBarImage.color = m_progressBarNormalColor;
+            }
+            else
+            {
+                m_timeProgressBarImage.color = Color.Lerp(m_progressBarEmptyColor, m_progressBarNormalColor, timeLeft / timeThreshold);
+            }
+        }
     }
 
     public void OnUpdateModifierMenu(ModifierChoice mod1, ModifierChoice mod2, ModifierChoice mod3)

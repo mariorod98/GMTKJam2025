@@ -18,7 +18,7 @@ public class IncreaseTimePowerUp : PowerUp
 
     public override void ApplyModifier()
     {
-        GameManager.Instance.IncreaseMaxCountdown(m_floatModifier);
+        ModifierManager.Instance.m_countdownModifier += m_floatModifier;
     }
 
     public override String GetFormattedText()

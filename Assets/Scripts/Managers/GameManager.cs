@@ -28,31 +28,30 @@ public class GameManager : MonoBehaviour
     public SpawnManager m_spawnManager;
     public UIManager m_uiManager;
 
-    public UnityEvent<float> m_onCountdownUpdate;
+    public UnityEvent<float, float, float> m_onCountdownUpdate;
     public UnityEvent<int, int> m_onScoreUpdate;
     public UnityEvent<int, int> m_onTotalLoopsUpdate;
     public UnityEvent<int, int> m_onRoundUpdate;
 
     public UnityEvent<ModifierChoice, ModifierChoice, ModifierChoice> m_onModifierChoiceStarted;
 
-    [SerializeField] private float m_maxCountdown = 20.0f;
+    [SerializeField] private float m_baseMaxCountdown = 20.0f;
+    [SerializeField] private float m_baseMaxBonusCountdown = 5.0f;
+    [SerializeField] private float m_waitTimeForCountdown = 2.0f;
 
     private int m_rounds;
     private int m_score = 0;
     private int m_totalLoops = 0;
     private float m_countdown = 0.0f;
     private bool m_countdownStart = false;
+    private float m_bonusCountdown = 0.0f;
+
 
     private List<ModifierChoice> m_modifierChoices = new List<ModifierChoice>();
 
     private void Start()
     {
         // StartGame();
-    }
-
-    public void IncreaseMaxCountdown(float value)
-    {
-        m_maxCountdown += value;
     }
 
     public void StartGame()
@@ -67,12 +66,17 @@ public class GameManager : MonoBehaviour
 
     public void OnWaveStart()
     {
+        StartCoroutine(StartCountdown());
+    }
+    private IEnumerator StartCountdown()
+    {
+        yield return new WaitForSeconds(m_waitTimeForCountdown);
         m_countdownStart = true;
     }
 
     public void OnLoopEnterBowl(LoopColor color)
     {
-        m_score += 1;
+        AddScore(1);
         m_totalLoops += 1;
         m_onScoreUpdate.Invoke(m_score, 1);
         m_onTotalLoopsUpdate.Invoke(m_totalLoops, 1);
@@ -87,7 +91,7 @@ public class GameManager : MonoBehaviour
 
     public void OnLoopExitBowl(LoopColor color)
     {
-        m_score -= 1;
+        AddScore(-1);
         m_totalLoops -= 1;
 
         m_onScoreUpdate.Invoke(m_score, -1);
@@ -102,12 +106,23 @@ public class GameManager : MonoBehaviour
         StartRound();
     }
 
+    public float GetMaxCountdown()
+    {
+        return m_baseMaxCountdown + ModifierManager.Instance.m_countdownModifier;
+    }
+
+    public float GetMaxBonusCountdown()
+    {
+        return m_baseMaxBonusCountdown + ModifierManager.Instance.m_bonusCountdownModifier;
+    }
+
     private void Update()
     {
         if (m_countdownStart)
         {
             m_countdown -= Time.deltaTime;
-            m_onCountdownUpdate.Invoke(m_countdown / m_maxCountdown);
+            m_bonusCountdown -= Time.deltaTime;
+            m_onCountdownUpdate.Invoke(m_countdown / GetMaxCountdown(), m_countdown, m_bonusCountdown);
 
             if (m_countdown <= 0.0f)
             {
@@ -121,11 +136,22 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    private void AddScore(int value)
+    {
+        m_score += value * (IsInBonusTime() ? ModifierManager.Instance.m_bonusScoreModifier : 1);
+    }
+
+    private bool IsInBonusTime()
+    {
+        return m_bonusCountdown > 0.0f;
+    }
+
     private void StartRound()
     {
         m_rounds += 1;
-        m_countdown = m_maxCountdown;
-        m_onCountdownUpdate.Invoke(1.0f);
+        m_countdown = GetMaxCountdown();
+        m_bonusCountdown = GetMaxBonusCountdown();
+        m_onCountdownUpdate.Invoke(1.0f, m_countdown, m_bonusCountdown);
         m_onRoundUpdate.Invoke(m_rounds, 1);
         m_uiManager.Show(UIScreen.HUD);
         m_spawnManager.StarSpawn();

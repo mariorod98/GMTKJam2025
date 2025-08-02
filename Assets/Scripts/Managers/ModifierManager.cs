@@ -24,6 +24,10 @@ public class ModifierManager : MonoBehaviour
     [Header("Modifiers")]
     // PowerUps
     public float m_pickRadiusModifier = 1.0f;
+    public int m_bonusScoreModifier= 2;
+    public float m_countdownModifier = 0.0f;
+    public float m_bonusCountdownModifier = 0.0f;
+
     // ChallengeUps
     public float m_loopsMultiplierModifier = 1.0f;
     public int m_numberOfColorsModifier = 2;
@@ -33,6 +37,8 @@ public class ModifierManager : MonoBehaviour
     public List<float> m_pickRadiusPossibleValues;
     public List<float> m_timeModifierPossibleValues;
     public List<float> m_bowlSizePossibleValues;
+    public List<int> m_bonusMultiplierPossibleValues;
+    public List<float> m_bonusTimePossibleValues;
 
     [Header("ChallengeUp Options")]
     public List<float> m_loopsMultiplierPossibleValues;
@@ -56,6 +62,10 @@ public class ModifierManager : MonoBehaviour
                 return new IncreasePickRadiusPowerUp(m_pickRadiusPossibleValues[level]);
             case PowerUpType.IncreaseTime:
                 return new IncreaseTimePowerUp(m_timeModifierPossibleValues[level]);
+            case PowerUpType.IncreaseBonusMultiplier:
+                return new IncreaseBonusPowerUp(m_bonusMultiplierPossibleValues[level]);
+            case PowerUpType.IncreaseBonusTime:
+                return new IncreaseBonusTimePowerUp(m_bonusTimePossibleValues[level]);
         }
 
         Assert.IsTrue(false, "Didn't pick a power up");

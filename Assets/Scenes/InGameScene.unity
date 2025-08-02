@@ -68604,6 +68604,34 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 901262942}
+    - target: {fileID: 1319466835203640168, guid: e5027200f831ced4bb514ae2d26e39c2, type: 3}
+      propertyPath: m_progressBarNormalColor.a
+      value: 0.8627451
+      objectReference: {fileID: 0}
+    - target: {fileID: 1319466835203640168, guid: e5027200f831ced4bb514ae2d26e39c2, type: 3}
+      propertyPath: m_progressBarNormalColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1319466835203640168, guid: e5027200f831ced4bb514ae2d26e39c2, type: 3}
+      propertyPath: m_progressBarNormalColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1319466835203640168, guid: e5027200f831ced4bb514ae2d26e39c2, type: 3}
+      propertyPath: m_progressBarNormalColor.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1319466835203640168, guid: e5027200f831ced4bb514ae2d26e39c2, type: 3}
+      propertyPath: m_progressBarOnBonusColor.a
+      value: 0.8627451
+      objectReference: {fileID: 0}
+    - target: {fileID: 1319466835203640168, guid: e5027200f831ced4bb514ae2d26e39c2, type: 3}
+      propertyPath: m_progressBarOnBonusColor.g
+      value: 0.84313726
+      objectReference: {fileID: 0}
+    - target: {fileID: 1319466835203640168, guid: e5027200f831ced4bb514ae2d26e39c2, type: 3}
+      propertyPath: m_progressBarOnBonusColor.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2570109375553004170, guid: e5027200f831ced4bb514ae2d26e39c2, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -68648,6 +68676,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: UIManager
       objectReference: {fileID: 0}
+    - target: {fileID: 3684328744357304736, guid: e5027200f831ced4bb514ae2d26e39c2, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4487250460359463839, guid: e5027200f831ced4bb514ae2d26e39c2, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -68660,6 +68692,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 901262942}
+    - target: {fileID: 8106949025764589319, guid: e5027200f831ced4bb514ae2d26e39c2, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -68738,6 +68774,10 @@ PrefabInstance:
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8255807575298051443, guid: a444eb6caf9f8e14194eac9873f945aa, type: 3}
+      propertyPath: m_bonusTimePossibleValues.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8255807575298051443, guid: a444eb6caf9f8e14194eac9873f945aa, type: 3}
       propertyPath: m_pickRadiusPossibleValues.Array.size
       value: 3
       objectReference: {fileID: 0}
@@ -68754,6 +68794,18 @@ PrefabInstance:
       value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 8255807575298051443, guid: a444eb6caf9f8e14194eac9873f945aa, type: 3}
+      propertyPath: m_bonusTimePossibleValues.Array.data[0]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8255807575298051443, guid: a444eb6caf9f8e14194eac9873f945aa, type: 3}
+      propertyPath: m_bonusTimePossibleValues.Array.data[1]
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8255807575298051443, guid: a444eb6caf9f8e14194eac9873f945aa, type: 3}
+      propertyPath: m_bonusTimePossibleValues.Array.data[2]
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8255807575298051443, guid: a444eb6caf9f8e14194eac9873f945aa, type: 3}
       propertyPath: m_timeModifierPossibleValues.Array.size
       value: 3
       objectReference: {fileID: 0}
@@ -68768,6 +68820,10 @@ PrefabInstance:
     - target: {fileID: 8255807575298051443, guid: a444eb6caf9f8e14194eac9873f945aa, type: 3}
       propertyPath: m_pickRadiusPossibleValues.Array.data[2]
       value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 8255807575298051443, guid: a444eb6caf9f8e14194eac9873f945aa, type: 3}
+      propertyPath: m_bonusMultiplierPossibleValues.Array.size
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8255807575298051443, guid: a444eb6caf9f8e14194eac9873f945aa, type: 3}
       propertyPath: m_loopsMultiplierPossibleValues.Array.size
@@ -68792,6 +68848,18 @@ PrefabInstance:
     - target: {fileID: 8255807575298051443, guid: a444eb6caf9f8e14194eac9873f945aa, type: 3}
       propertyPath: m_pickSphereSizePossibleValues.Array.data[2]
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8255807575298051443, guid: a444eb6caf9f8e14194eac9873f945aa, type: 3}
+      propertyPath: m_bonusMultiplierPossibleValues.Array.data[0]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8255807575298051443, guid: a444eb6caf9f8e14194eac9873f945aa, type: 3}
+      propertyPath: m_bonusMultiplierPossibleValues.Array.data[1]
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8255807575298051443, guid: a444eb6caf9f8e14194eac9873f945aa, type: 3}
+      propertyPath: m_bonusMultiplierPossibleValues.Array.data[2]
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 8255807575298051443, guid: a444eb6caf9f8e14194eac9873f945aa, type: 3}
       propertyPath: m_loopsMultiplierPossibleValues.Array.data[1]
@@ -70903,6 +70971,10 @@ PrefabInstance:
       propertyPath: m_spawnManager
       value: 
       objectReference: {fileID: 269496078}
+    - target: {fileID: 4821033110782141872, guid: 7baa0c7bb3051464db5516f2757f8a8b, type: 3}
+      propertyPath: m_maxBonusCountdown
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 4821033110782141872, guid: 7baa0c7bb3051464db5516f2757f8a8b, type: 3}
       propertyPath: m_onGameOver.m_PersistentCalls.m_Calls.Array.size
       value: 1

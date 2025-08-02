@@ -2,12 +2,12 @@ using System;
 
 public enum PowerUpType
 {
-    IncreasePickRadius,
     IncreaseTime,
-    Size,
-    IncreaseBowlSize,
     IncreaseBonusMultiplier,
     IncreaseBonusTime,
+    Size,
+    IncreasePickRadius,
+    IncreaseBowlSize,
     IncreaseBowlMagnet,
 }
 
