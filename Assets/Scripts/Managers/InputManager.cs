@@ -73,7 +73,7 @@ public class InputManager : MonoBehaviour
 
         RaycastHit hit;
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        if (Physics.SphereCast(ray, 0.01f, out hit, Mathf.Infinity, m_mouseLayerMask))
+        if (Physics.SphereCast(ray, 0.05f, out hit, Mathf.Infinity, m_mouseLayerMask))
         {
             m_initialHitPoint = hit.point;
             LoopColor color = hit.rigidbody.GetComponent<Loop>().m_loopColor;

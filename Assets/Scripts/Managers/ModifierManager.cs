@@ -143,6 +143,16 @@ public class ModifierManager : MonoBehaviour
         List<ChallengeUpType> candidates = new List<ChallengeUpType>();
         candidates.Add(ChallengeUpType.IncreaseLoopsPerWave);
 
+        bool forceLoops = m_numberOfColorsModifier < 3 && GameManager.Instance.m_rounds > 2
+        || m_numberOfColorsModifier < 4 && GameManager.Instance.m_rounds > 6
+        || m_numberOfColorsModifier < 5 && GameManager.Instance.m_rounds > 10
+        || m_numberOfColorsModifier < 6 && GameManager.Instance.m_rounds > 15;
+
+        if (forceLoops)
+        {
+            return ChallengeUpType.IncreaseNumberOfColors;
+        }
+
         if(m_numberOfColorsModifier < 6)
         {
             candidates.Add(ChallengeUpType.IncreaseNumberOfColors);

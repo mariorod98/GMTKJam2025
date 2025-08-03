@@ -96,6 +96,11 @@ public class SpawnManager : MonoBehaviour
         loop.GetComponent<Rigidbody>().velocity = Vector3.zero;
     }
 
+    public void GameOver()
+    {
+        m_onLoopsLeftUpdate.Invoke(m_loopsLeft, 0);
+    }
+
     public void DespawnLoop(GameObject loop)
     {
         loop.transform.position = m_despawnPos;

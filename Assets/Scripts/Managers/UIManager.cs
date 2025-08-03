@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
-public enum UIScreen { StartMenu, EndMenu, ModifierMenu, HUD}
+public enum UIScreen { StartMenu, EndMenu, ModifierMenu, TutorialMenu, HUD}
 
 public class UIManager : MonoBehaviour
 {
@@ -20,6 +20,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] GameObject m_endMenu;
     [SerializeField] GameObject m_HUD;
     [SerializeField] GameObject m_modifierMenu;
+    [SerializeField] GameObject m_tutorialMenu;
 
     [Header("HUD")]
     [SerializeField] TMP_Text m_bonusText;
@@ -54,6 +55,7 @@ public class UIManager : MonoBehaviour
         m_endMenu.SetActive(false);
         m_HUD.SetActive(false);
         m_modifierMenu.SetActive(false);
+        m_tutorialMenu.SetActive(false);
 
         switch (screen) 
         {
@@ -68,6 +70,9 @@ public class UIManager : MonoBehaviour
                 break;
             case UIScreen.HUD:
                 m_HUD.SetActive(true);
+                break;
+            case UIScreen.TutorialMenu:
+                m_tutorialMenu.SetActive(true);
                 break;
         }
     }

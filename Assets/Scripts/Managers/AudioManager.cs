@@ -54,30 +54,44 @@ public class AudioManager : MonoBehaviour
 
     public void EndRound(int n_round)
     {
-        int n_sounds = 1;
+        int n_sounds = 1; // < 5
+
         if (n_round < 10)
         {
             n_sounds = 3;
         }
-        else
+        if (n_round < 15)
         {
             n_sounds = 5;
         }
+        else
+        {
+            n_sounds = 8;
+        }
 
+        StartCoroutine(PlayEndRoundSound(n_sounds));
         for (int i = 0; i < n_sounds; i++)
         {
-            float wait = Random.Range(0.0f, 1.0f);
+            float wait = Random.Range(0.25f, 0.45f);
             AudioSource source = m_endRoundAudioSources[i];
             AudioClip clip = m_endRoundClips[Random.Range(0, m_endRoundClips.Count)];
 
-            StartCoroutine(PlayEndRoundSound(wait, source, clip));
 
         }
     }
-    private IEnumerator PlayEndRoundSound(float wait, AudioSource source, AudioClip clip)
+    private IEnumerator PlayEndRoundSound(int n_sounds)
     {
-        yield return new WaitForSeconds(wait);
-        source.PlayOneShot(clip);
+        for (int i = 0; i < n_sounds; i++)
+        {
+            float wait = Random.Range(0.0f, 1.0f);
+            yield return new WaitForSeconds(wait);
+            AudioSource source = m_endRoundAudioSources[i];
+            AudioClip clip = m_endRoundClips[Random.Range(0, m_endRoundClips.Count)];
+
+            source.PlayOneShot(clip);
+
+        }
+
     }
 
 }

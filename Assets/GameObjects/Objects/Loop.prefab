@@ -131,15 +131,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_loopColor: 0
-  m_collisionWithBowlClips:
-  - {fileID: 8300000, guid: 1ee003925e356ef46b3b0d55e9523545, type: 3}
-  - {fileID: 8300000, guid: 69870b8310e1e8042b318a185844256f, type: 3}
-  - {fileID: 8300000, guid: b1480f6835a58d341ae39e5ff513da3f, type: 3}
-  m_collisionWithLoopClips:
-  - {fileID: 8300000, guid: effe45f2548676b4997c4cac4d74ad88, type: 3}
-  - {fileID: 8300000, guid: 843c9e0dc24387a4d991e70586a3b5e0, type: 3}
-  - {fileID: 8300000, guid: d776646b52b704240a6440ca0dd3c15d, type: 3}
   m_audioSource: {fileID: 850128067981587977}
+  m_isInBowl: 0
+  m_score: 1
 --- !u!54 &6029573283497711249
 Rigidbody:
   m_ObjectHideFlags: 0
