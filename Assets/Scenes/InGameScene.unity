@@ -64510,7 +64510,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: -510511449064498494, guid: dc50124f2e1e2234db365c0167d759c1, type: 2}
   m_audioClip: {fileID: 8300000, guid: 54f2e8e70f95a6848b610426eabcdbf0, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.6
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -68781,6 +68781,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 901262942}
+    - target: {fileID: 959452476291200612, guid: e5027200f831ced4bb514ae2d26e39c2, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 600
+      objectReference: {fileID: 0}
     - target: {fileID: 1091126979496939900, guid: e5027200f831ced4bb514ae2d26e39c2, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -68865,6 +68869,12 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 901262942}
+    - target: {fileID: 5402664366724355632, guid: e5027200f831ced4bb514ae2d26e39c2, type: 3}
+      propertyPath: m_text
+      value: 'FROOT LOOPS
+
+        MAYHEM'
+      objectReference: {fileID: 0}
     - target: {fileID: 6526635421463118183, guid: e5027200f831ced4bb514ae2d26e39c2, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 

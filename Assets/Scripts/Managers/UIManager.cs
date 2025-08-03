@@ -119,7 +119,7 @@ public class UIManager : MonoBehaviour
 
     public void OnUpdateModifierMenu(ModifierChoice mod1, ModifierChoice mod2, ModifierChoice mod3)
     {
-        string[] tiers = { "Common", "Rare", "Epic" };
+        string[] tiers = { "Common", "Powerful", "Epic" };
 
         m_opt1Title.text = tiers[mod1.m_level];
         m_opt1PowerUpText.text = mod1.m_powerUp.GetFormattedText();

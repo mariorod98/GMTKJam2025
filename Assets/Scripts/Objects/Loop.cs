@@ -48,8 +48,12 @@ public class Loop : MonoBehaviour
         }
         else if (collision.gameObject.CompareTag("Loop") && collision.relativeVelocity.sqrMagnitude > 20.0f)
         {
-            AudioClip clip = AudioManager.Instance.m_collisionWithLoopClips[Random.Range(0, AudioManager.Instance.m_collisionWithLoopClips.Count)];
-            m_audioSource.PlayOneShot(clip);
+            // We only want to play one collision sound
+            if (gameObject.GetInstanceID() < collision.gameObject.GetInstanceID())
+            {
+                AudioClip clip = AudioManager.Instance.m_collisionWithLoopClips[Random.Range(0, AudioManager.Instance.m_collisionWithLoopClips.Count)];
+                m_audioSource.PlayOneShot(clip);
+            }
         }
     }
 
