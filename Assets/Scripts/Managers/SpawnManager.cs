@@ -23,6 +23,11 @@ public class SpawnManager : MonoBehaviour
 	private int m_nextLoop = 0;
 	private int m_loopsLeft = 0;
 
+    public int GetLoopsLeft()
+    {
+        return m_loopsLeft;
+    }
+
     public void InitSpawn()
     {
         m_loopsLeft = 0;
@@ -30,10 +35,15 @@ public class SpawnManager : MonoBehaviour
         m_loopsPerWave = m_startingLoops;
     }
 
+    public int GetLoopsPerWave()
+    {
+        return (int)(m_loopsPerWave * ModifierManager.Instance.m_loopsMultiplierModifier);
+    }
+
     public void StarSpawn()
     {
         ResetSpawn();
-        m_loopsLeft = Mathf.Min((int)(m_loopsPerWave * ModifierManager.Instance.m_loopsMultiplierModifier), m_pool.Count);
+        m_loopsLeft = Mathf.Min(GetLoopsPerWave(), m_pool.Count);
         m_onLoopsLeftUpdate.Invoke(m_loopsLeft, 0);
         StartCoroutine(SpawnWave(m_loopsLeft));
     }
@@ -127,7 +137,8 @@ public class SpawnManager : MonoBehaviour
 		RespawnLoop(loop);		
 		int loopColorIdx = Random.Range(0, ModifierManager.Instance.m_numberOfColorsModifier);
 		loop.GetComponent<Loop>().m_loopColor = (LoopColor)loopColorIdx;
-		loop.GetComponentInChildren<Renderer>().material.color = m_materials[loopColorIdx].color;
+
+        loop.GetComponentInChildren<Renderer>().material.color = m_materials[loopColorIdx].color;
 
         loop.transform.localScale = m_baseLoopSize * (1.0f + Random.Range(0.0f, ModifierManager.Instance.m_loopSizeVariationModifier));
         loop.GetComponent<SphereCollider>().material.bounciness = ModifierManager.Instance.m_loopBouncinessModifier;

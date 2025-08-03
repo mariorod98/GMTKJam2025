@@ -50,11 +50,6 @@ public class GameManager : MonoBehaviour
 
     private List<ModifierChoice> m_modifierChoices = new List<ModifierChoice>();
 
-    private void Start()
-    {
-        // StartGame();
-    }
-
     public bool IsPlaying()
     {
         return m_isPlaying;
@@ -62,6 +57,7 @@ public class GameManager : MonoBehaviour
 
     public void StartGame()
     {
+        m_maxCountdown = m_baseMaxCountdown;
         m_rounds = 0;
         m_score = 0;
         m_totalLoops = 0;
@@ -169,6 +165,7 @@ public class GameManager : MonoBehaviour
         m_onRoundUpdate.Invoke(m_rounds, 1);
         m_uiManager.Show(UIScreen.HUD);
         m_spawnManager.StarSpawn();
+        AudioManager.Instance.StartRound(m_spawnManager.GetLoopsLeft());
     }
 
     private void EndRound()
@@ -176,6 +173,8 @@ public class GameManager : MonoBehaviour
         m_isPlaying = false;
         m_spawnManager.IncreaseLoopsPerWave();
         m_countdown += 2.0f;
+        m_spawnManager.ResetSpawn();
+        AudioManager.Instance.EndRound(m_rounds);
         PickModifier();
     }
 

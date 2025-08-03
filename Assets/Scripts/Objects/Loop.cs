@@ -10,7 +10,7 @@ public class Loop : MonoBehaviour
     public bool m_isInBowl = false;
     public int m_score = 1;
     private float m_timeInBowl = 0.0f;
-    private float m_timeToDespawn = 5.0f;
+    private float m_timeToDespawn = 15.0f;
 
     public void OnEnterBowl(int score)
     {
