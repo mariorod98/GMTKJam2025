@@ -39,6 +39,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private float m_baseMaxBonusCountdown = 5.0f;
     [SerializeField] private float m_waitTimeForCountdown = 2.0f;
 
+    private float m_maxCountdown;
     private int m_rounds;
     private int m_score = 0;
     private int m_totalLoops = 0;
@@ -107,7 +108,7 @@ public class GameManager : MonoBehaviour
         m_totalLoops -= 1;
 
         loop.ResetState();
-        m_onScoreUpdate.Invoke(m_score, -1);
+        m_onScoreUpdate.Invoke(m_score, loop.m_score);
         m_onTotalLoopsUpdate.Invoke(m_totalLoops, -1);
         m_spawnManager.LoopDeducted();
     }
@@ -131,7 +132,7 @@ public class GameManager : MonoBehaviour
 
     public float GetMaxCountdown()
     {
-        return m_baseMaxCountdown + ModifierManager.Instance.m_countdownModifier;
+        return m_maxCountdown + ModifierManager.Instance.m_countdownModifier;
     }
 
     public float GetMaxBonusCountdown()
@@ -174,6 +175,7 @@ public class GameManager : MonoBehaviour
     {
         m_isPlaying = false;
         m_spawnManager.IncreaseLoopsPerWave();
+        m_countdown += 2.0f;
         PickModifier();
     }
 
@@ -189,6 +191,7 @@ public class GameManager : MonoBehaviour
     private void GameOver()
     {
         m_isPlaying = false;
+        m_onScoreUpdate.Invoke(m_score, 0);
         m_uiManager.Show(UIScreen.EndMenu);
     }
 }
