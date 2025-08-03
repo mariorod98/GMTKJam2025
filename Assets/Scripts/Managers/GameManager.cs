@@ -66,6 +66,7 @@ public class GameManager : MonoBehaviour
         m_totalLoops = 0;
         m_onScoreUpdate.Invoke(0, 0);
         m_spawnManager.InitSpawn();
+        ModifierManager.Instance.ResetModifiers();
         StartRound();
     }
 

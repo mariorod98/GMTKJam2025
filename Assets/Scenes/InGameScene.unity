@@ -39567,7 +39567,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7954367044869358662, guid: bd3856c3ad999924193f8bc0fad2c466, type: 3}
       propertyPath: m_loopColor
-      value: 4
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7954367044869358662, guid: bd3856c3ad999924193f8bc0fad2c466, type: 3}
       propertyPath: m_onLoopExitedBowl.m_PersistentCalls.m_Calls.Array.size
@@ -64451,6 +64451,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2057849818}
   - component: {fileID: 2057849819}
+  - component: {fileID: 2057849820}
   m_Layer: 0
   m_Name: AudioManager
   m_TagString: Untagged
@@ -64497,6 +64498,102 @@ MonoBehaviour:
   - {fileID: 8300000, guid: effe45f2548676b4997c4cac4d74ad88, type: 3}
   - {fileID: 8300000, guid: 843c9e0dc24387a4d991e70586a3b5e0, type: 3}
   - {fileID: 8300000, guid: d776646b52b704240a6440ca0dd3c15d, type: 3}
+--- !u!82 &2057849820
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2057849817}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: -510511449064498494, guid: dc50124f2e1e2234db365c0167d759c1, type: 2}
+  m_audioClip: {fileID: 8300000, guid: 54f2e8e70f95a6848b610426eabcdbf0, type: 3}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 1
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!4 &2057935862 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5090671370744384618, guid: 3f4b8e6912c914e4e81e761539f82daa, type: 3}
@@ -68542,6 +68639,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: WhiteBowl
       objectReference: {fileID: 0}
+    - target: {fileID: 3196038653436812409, guid: 7616db1709a6857449d3455b2c8b94fd, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7059175844088689048, guid: 7616db1709a6857449d3455b2c8b94fd, type: 3}
       propertyPath: m_CollisionDetection
       value: 1
@@ -68609,7 +68710,11 @@ PrefabInstance:
       objectReference: {fileID: 2082298153}
     - target: {fileID: 8512085587786202530, guid: 00c833af5b7ebb5478cd5f117dc970aa, type: 3}
       propertyPath: m_loopsPerWave
-      value: 10
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 8512085587786202530, guid: 00c833af5b7ebb5478cd5f117dc970aa, type: 3}
+      propertyPath: m_startingLoops
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 8512085587786202530, guid: 00c833af5b7ebb5478cd5f117dc970aa, type: 3}
       propertyPath: m_baseLoopSize.x
@@ -68622,6 +68727,10 @@ PrefabInstance:
     - target: {fileID: 8512085587786202530, guid: 00c833af5b7ebb5478cd5f117dc970aa, type: 3}
       propertyPath: m_baseLoopSize.z
       value: 0.015
+      objectReference: {fileID: 0}
+    - target: {fileID: 8512085587786202530, guid: 00c833af5b7ebb5478cd5f117dc970aa, type: 3}
+      propertyPath: m_baseLoopsPerWave
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 8512085587786202530, guid: 00c833af5b7ebb5478cd5f117dc970aa, type: 3}
       propertyPath: m_secondsBeforeWave
@@ -68843,7 +68952,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8255807575298051443, guid: a444eb6caf9f8e14194eac9873f945aa, type: 3}
       propertyPath: m_loopBouncinessModifier
-      value: 0.1
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8255807575298051443, guid: a444eb6caf9f8e14194eac9873f945aa, type: 3}
+      propertyPath: m_loopSizeVariationModifier
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8255807575298051443, guid: a444eb6caf9f8e14194eac9873f945aa, type: 3}
       propertyPath: m_bowlSizePossibleValues.Array.size
@@ -68887,7 +69000,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8255807575298051443, guid: a444eb6caf9f8e14194eac9873f945aa, type: 3}
       propertyPath: m_pickRadiusPossibleValues.Array.data[0]
-      value: 0.5
+      value: 0.05
       objectReference: {fileID: 0}
     - target: {fileID: 8255807575298051443, guid: a444eb6caf9f8e14194eac9873f945aa, type: 3}
       propertyPath: m_pickRadiusPossibleValues.Array.data[1]
@@ -71088,6 +71201,10 @@ PrefabInstance:
       value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 4821033110782141872, guid: 7baa0c7bb3051464db5516f2757f8a8b, type: 3}
+      propertyPath: m_waitTimeForCountdown
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4821033110782141872, guid: 7baa0c7bb3051464db5516f2757f8a8b, type: 3}
       propertyPath: m_baseMaxBonusCountdown
       value: 5
       objectReference: {fileID: 0}
@@ -71291,7 +71408,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1618266754739324936, guid: 1a53f5d013e17ff43b00324547b4494c, type: 3}
       propertyPath: m_basepickRadius
-      value: 1
+      value: 0.75
       objectReference: {fileID: 0}
     - target: {fileID: 1618266754739324936, guid: 1a53f5d013e17ff43b00324547b4494c, type: 3}
       propertyPath: m_basePickSphereSize

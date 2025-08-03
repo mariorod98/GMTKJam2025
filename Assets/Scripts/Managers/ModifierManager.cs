@@ -43,30 +43,53 @@ public class ModifierManager : MonoBehaviour
     /******************************************************************************/
     [Header("PowerUp Modifiers")]
     // PowerUps
-    public float m_pickRadiusModifier = 1.0f;
-    public int m_bonusScoreModifier= 2;
-    public float m_countdownModifier = 0.0f;
-    public float m_bonusCountdownModifier = 0.0f;
+    [SerializeField] private float m_basePickRadiusModifier = 1.0f;
+    [SerializeField] private int m_baseBonusScoreModifier = 2;
+    [SerializeField] private float m_baseCountdownModifier = 0.0f;
+    [SerializeField] private float m_baseBonusCountdownModifier = 0.0f;
 
     // ChallengeUps
     [Header("ChallengeUp Modifiers")]
+    [SerializeField] private float m_baseLoopsMultiplierModifier = 1.0f;
+    [SerializeField] private int m_baseNumberOfColorsModifier = 2;
+    [SerializeField] private float m_baseLoopBouncinessModifier = 0.0f;
+    [SerializeField] private float m_baseLoopSizeVariationModifier = 0.0f;
+
+    [Header("PowerUp Options")]
+    [SerializeField] private int m_maxPowerLevel = 3;
+    [SerializeField] private List<float> m_pickRadiusPossibleValues;
+    [SerializeField] private List<float> m_timeModifierPossibleValues;
+    [SerializeField] private List<float> m_bowlSizePossibleValues;
+    [SerializeField] private List<int> m_bonusMultiplierPossibleValues;
+    [SerializeField] private List<float> m_bonusTimePossibleValues;
+
+    [Header("ChallengeUp Options")]
+    [SerializeField] private List<float> m_loopsMultiplierPossibleValues;
+    [SerializeField] private List<float> m_loopBouncinessPossibleValues;
+    [SerializeField] private List<float> m_loopSizeVariationPossibleValues;
+
+    public float m_pickRadiusModifier = 1.0f;
+    public int m_bonusScoreModifier = 2;
+    public float m_countdownModifier = 0.0f;
+    public float m_bonusCountdownModifier = 0.0f;
+
     public float m_loopsMultiplierModifier = 1.0f;
     public int m_numberOfColorsModifier = 2;
     public float m_loopBouncinessModifier = 0.0f;
     public float m_loopSizeVariationModifier = 0.0f;
 
-    [Header("PowerUp Options")]
-    public int m_maxPowerLevel = 3;
-    public List<float> m_pickRadiusPossibleValues;
-    public List<float> m_timeModifierPossibleValues;
-    public List<float> m_bowlSizePossibleValues;
-    public List<int> m_bonusMultiplierPossibleValues;
-    public List<float> m_bonusTimePossibleValues;
+    public void ResetModifiers()
+    {
+        m_pickRadiusModifier = m_basePickRadiusModifier;
+        m_bonusScoreModifier = m_baseBonusScoreModifier;
+        m_countdownModifier = m_baseCountdownModifier;
+        m_bonusCountdownModifier = m_baseBonusCountdownModifier;
 
-    [Header("ChallengeUp Options")]
-    public List<float> m_loopsMultiplierPossibleValues;
-    public List<float> m_loopBouncinessPossibleValues;
-    public List<float> m_loopSizeVariationPossibleValues;
+        m_loopsMultiplierModifier = m_baseLoopsMultiplierModifier;
+        m_numberOfColorsModifier = m_baseNumberOfColorsModifier;
+        m_loopBouncinessModifier = m_baseLoopBouncinessModifier;
+        m_loopSizeVariationModifier = m_baseLoopSizeVariationModifier;
+}
 
     public ModifierChoice GenerateModifierChoice()
     {
@@ -124,11 +147,11 @@ public class ModifierManager : MonoBehaviour
         {
             candidates.Add(ChallengeUpType.IncreaseNumberOfColors);
         }
-        if(m_loopBouncinessModifier < 0.9f)
+        if(m_loopBouncinessModifier < 0.8f)
         {
             candidates.Add(ChallengeUpType.IncreaseLoopBounciness);
         }
-        if (m_loopSizeVariationModifier < 5.0f)
+        if (m_loopSizeVariationModifier < 3.0f)
         {
             candidates.Add(ChallengeUpType.IncreaseLoopSizeVariation);
         }

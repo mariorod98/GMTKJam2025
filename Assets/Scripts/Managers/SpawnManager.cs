@@ -12,13 +12,14 @@ public class SpawnManager : MonoBehaviour
     [SerializeField] private float m_secondsBeforeWave = 1.0f;
 
 	[SerializeField] private List<Material> m_materials = new List<Material>();
-	[SerializeField] private int m_loopsPerWave;
+	[SerializeField] private int m_startingLoops;
 
     [Header("Events")]
     public UnityEvent<int, int> m_onLoopsLeftUpdate;
     public UnityEvent m_onWaveStart;
 
 	private List<GameObject> m_pool = new List<GameObject>();
+	private int m_loopsPerWave;
 	private int m_nextLoop = 0;
 	private int m_loopsLeft = 0;
 
@@ -26,6 +27,7 @@ public class SpawnManager : MonoBehaviour
     {
         m_loopsLeft = 0;
         m_nextLoop = 0;
+        m_loopsPerWave = m_startingLoops;
     }
 
     public void StarSpawn()
